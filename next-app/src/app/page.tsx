@@ -1,11 +1,11 @@
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center">
-      <div className="max-w-xl w-full px-6 py-12 bg-white rounded-xl shadow-lg flex flex-col items-center">
+      <div className="max-w-xl w-full my-2 px-6 py-12 bg-white rounded-xl shadow-lg flex flex-col items-center">
         <img
-          src="https://uii.ac.id/wp-content/uploads/2020/09/logo-uii-2020.png"
+          src="https://smauiiyk.sch.id/wp-content/uploads/2025/06/logo.png"
           alt="Logo SMA UII"
-          className="w-24 h-24 mb-6"
+          className="w-24 mb-6"
         />
         <h1 className="text-3xl font-extrabold text-indigo-700 mb-2 text-center">
           Sistem Akademik SMA UII Yogyakarta
