@@ -1,36 +1,43 @@
-import * as React from "react"
+"use client"
+
+import type * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
+  Calendar,
+  GraduationCap,
+  BookOpen,
+  ClipboardCheck,
+  Network,
+  DollarSign,
+  UserCheck,
+  Building,
+  FileText,
+  Wallet,
+  BarChart3,
+  Smartphone,
+  User,
+  UserCog,
+} from "lucide-react"
+import { NavUser } from "@/components/nav-user"
+import {
   IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
+  IconHome,
   IconSearch,
   IconSettings,
-  IconUsers,
 } from "@tabler/icons-react"
-
-import { NavDocuments } from "@/components/nav-documents"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar"
 
+import { NavMain } from "@/components/nav-main"
+import { NavSecondary } from "@/components/nav-secondary"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "./ui/sheet"
+import { NavMenu } from "@/components/nav-menu"
+
+// Data navigasi
 const data = {
   user: {
     name: "shadcn",
@@ -39,141 +46,196 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      title: "Overview",
+      url: "/dashboard/overview",
+      icon: IconHome,
     },
   ],
-  navClouds: [
+  navMenu: [
     {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
+      name: "Pengguna",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Siswa",
+          url: "/dashboard/users?tab=student",
+          icon: GraduationCap,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Guru",
+          url: "/dashboard/users?tab=teacher",
+          icon: BookOpen,
+        },
+      ]
+    },
+    {
+      name: "Akademik",
+      items: [
+        {
+          title: "Manajemen Sekolah",
+          url: "/dashboard/school-management",
+          icon: Building,
+        },
+        {
+          title: "Mata Pelajaran",
+          url: "/dashboard/subject",
+          icon: BookOpen,
+        },
+        {
+          title: "Jadwal",
+          url: "/dashboard/scheduler",
+          icon: Calendar,
+        },
+        {
+          title: "Presensi",
+          url: "/dashboard/attendance",
+          icon: UserCheck,
+        },
+        {
+          title: "Laporan",
+          url: "/dashboard/reports",
+          icon: FileText,
         },
       ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
+      name: "Manajemen Kelas",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Kas Kelas",
+          url: "/dashboard/class-funds",
+          icon: DollarSign,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Aset Kelas",
+          url: "/dashboard/class-assets",
+          icon: Building,
+        },
+        {
+          title: "Piket Siswa",
+          url: "/dashboard/duty-schedule",
+          icon: ClipboardCheck,
         },
       ],
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
+      name: "E-Wallet & Digital",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "E-Wallet Siswa",
+          url: "/dashboard/student-wallet",
+          icon: Wallet,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Google Calendar",
+          url: "/dashboard/google-calendar",
+          icon: Calendar,
+        },
+      ],
+    },
+    {
+      name: "Dashboard Preview",
+      items: [
+        {
+          title: "Dashboard Siswa",
+          url: "/dashboard/student-dashboard",
+          icon: GraduationCap,
+        },
+        {
+          title: "Dashboard Guru",
+          url: "/dashboard/teacher-dashboard",
+          icon: User,
+        },
+        {
+          title: "Dashboard Wali Murid",
+          url: "/dashboard/parent-dashboard",
+          icon: UserCog,
+        },
+      ],
+    },
+    {
+      name: "Mobile App",
+      items: [
+        {
+          title: "Mobile Dashboard",
+          url: "/mobile/dashboard",
+          icon: Smartphone,
+        },
+        {
+          title: "Mobile Presensi",
+          url: "/mobile/attendance",
+          icon: UserCheck,
+        },
+        {
+          title: "Mobile Nilai",
+          url: "/mobile/grades",
+          icon: BarChart3,
+        },
+        {
+          title: "Mobile Keuangan",
+          url: "/mobile/financial",
+          icon: DollarSign,
+        },
+      ],
+    },
+    {
+      name: "Sistem",
+      items: [
+        {
+          title: "LDAP Config",
+          url: "/dashboard/ldap-config",
+          icon: Network,
+        },
+        {
+          title: "Network Monitor",
+          url: "/dashboard/network-monitoring",
+          icon: Network,
         },
       ],
     },
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
+      title: "Pengaturan",
+      url: "/dashboard/settings",
       icon: IconSettings,
     },
     {
-      title: "Get Help",
-      url: "#",
+      title: "Help Desk",
+      url: "/dashboard/helpdesk",
       icon: IconHelp,
     },
     {
       title: "Search",
-      url: "#",
+      url: "/dashboard/search?",
       icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar variant="inset" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <div className="flex items-center gap-2 px-4 py-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <GraduationCap className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="font-semibold">Sistem Akademik</p>
+            <span className="text-xs">Sekolah Digital SMA UII</span>
+          </div>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavMenu menus={data.navMenu} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }

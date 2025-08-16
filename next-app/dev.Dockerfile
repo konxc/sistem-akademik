@@ -1,18 +1,25 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:18-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+RUN apk add --no-cache expect
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm config set enable-pre-post-scripts true && pnpm i; \
   # Allow install without lockfile, so example works even without Node.js installed locally
   else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
   fi
+
+# RUN pnpm approve-builds --yes
+# Opsi --yes adalah fitur baru di pnpm@>=9. Kamu saat ini menggunakan pnpm@10.14.0
+RUN echo -e "a\n" | pnpm approve-builds
+RUN echo -e "y\n"
+
 
 COPY src ./src
 COPY public ./public

@@ -4,28 +4,24 @@ services:
     build:
       context: ./next-app
       dockerfile: dev.Dockerfile
-
-    # Set environment variables directly in the compose file
     environment:
       ENV_VARIABLE: ${ENV_VARIABLE}
       NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
-
-    # Set environment variables based on the .env file
     env_file:
       - .env
     volumes:
       - ./next-app/src:/app/src
       - ./next-app/public:/app/public
+      - ./next-app/next.config.js:/app/next.config.js
+      - ./next-app/.env:/app/.env
     restart: always
     ports:
       - 3000:3000
+    #expose:
+    #  - 3000
     networks:
-      - my_network
+      - nginx-net  # ← tambahkan ini
 
-  # Add more containers below (nginx, postgres, etc.)
-
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
 networks:
-  my_network:
-    external: true
+  nginx-net:
+    external: true  # ← deklarasikan agar bisa dipakai
