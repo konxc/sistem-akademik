@@ -25,6 +25,8 @@ import {
   X
 } from "lucide-react"
 import { withAdminAuth } from "@/components/auth/with-auth"
+import { useSchools, useUpdateSchool } from "@/hooks/use-school"
+import { toast } from "sonner"
 
 function SchoolManagementPage() {
   const searchParams = useSearchParams()
@@ -36,6 +38,16 @@ function SchoolManagementPage() {
     return searchParams.get('tab') || 'overview'
   })
   const [isEditing, setIsEditing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    foundedYear: "",
+    address: "",
+    phone: "",
+    email: "",
+    website: "",
+    accreditation: ""
+  })
 
   // Update URL when tab changes
   const handleTabChange = (tabId: string) => {
@@ -45,27 +57,109 @@ function SchoolManagementPage() {
     router.push(`${pathname}?${params.toString()}`)
   }
 
+  // Handle Edit Button Click - Auto switch to Overview tab
+  const handleEditClick = () => {
+    // Switch to overview tab first
+    handleTabChange('overview')
+    
+    // Then enable edit mode after a short delay to ensure tab switch is complete
+    setTimeout(() => {
+      setIsEditing(true)
+    }, 100)
+  }
+
+  // Handle form input changes
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  // Handle form save
+  const handleSave = async () => {
+    try {
+      setIsSaving(true)
+      
+      if (!schoolData.id) {
+        toast.error('School ID tidak ditemukan')
+        return
+      }
+
+      // Prepare data for API call
+      const updateData = {
+        name: formData.name,
+        foundedYear: parseInt(formData.foundedYear) || 1995,
+        address: formData.address,
+        phone: formData.phone,
+        email: formData.email,
+        website: formData.website,
+        accreditation: formData.accreditation
+      }
+
+      // Call tRPC update mutation
+      await updateSchoolMutation.mutateAsync({
+        id: schoolData.id,
+        data: updateData
+      })
+      
+      // Show success message
+      toast.success('Data sekolah berhasil disimpan!')
+      
+      // Exit edit mode
+      setIsEditing(false)
+      
+    } catch (error: any) {
+      console.error('Error saving data:', error)
+      toast.error(`Gagal menyimpan data: ${error.message || 'Unknown error'}`)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  // Handle form cancel
+  const handleCancel = () => {
+    // Reset form data to original values
+    setFormData({
+      name: schoolData.name || "",
+      foundedYear: schoolData.foundedYear?.toString() || "",
+      address: schoolData.address || "",
+      phone: schoolData.phone || "",
+      email: schoolData.email || "",
+      website: schoolData.website || "",
+      accreditation: schoolData.accreditation || ""
+    })
+    
+    // Exit edit mode
+    setIsEditing(false)
+  }
+
   // Sync with URL changes
   useEffect(() => {
     const tab = searchParams.get('tab') || 'overview'
     setActiveTab(tab)
   }, [searchParams])
 
-  // Mock data untuk sekolah
-  const schoolData = {
-    name: "SMA UII Yogyakarta",
-    address: "Jl. Kaliurang KM 14.5, Sleman, Yogyakarta",
-    phone: "0274-895123",
-    email: "info@smauiiyk.sch.id",
-    website: "www.smauiiyk.sch.id",
-    established: "1995",
-    accreditation: "A",
-    principal: "Drs. Ahmad Rizki, M.Pd",
-    vicePrincipal: "Dra. Siti Aminah, M.Pd",
-    totalStudents: 1247,
-    totalTeachers: 89,
-    totalStaff: 45,
-    totalClasses: 36
+
+
+  // Fetch real school data using tRPC
+  const { data: schoolsData, isLoading: isLoadingSchools } = useSchools({ page: 1, limit: 1 })
+  const updateSchoolMutation = useUpdateSchool()
+
+  // Get school data from API response
+  const schoolData = schoolsData?.data?.[0] || {
+    id: "",
+    name: "",
+    address: "",
+    phone: "",
+    email: "",
+    website: "",
+    foundedYear: 1995,
+    accreditation: "",
+    totalStudents: 0,
+    totalTeachers: 0,
+    totalStaff: 0,
+    totalClasses: 0
   }
 
   // Data tahun ajaran
@@ -148,6 +242,19 @@ function SchoolManagementPage() {
     }
   ]
 
+  // Initialize form data when school data changes
+  useEffect(() => {
+    setFormData({
+      name: schoolData.name || "",
+      foundedYear: schoolData.foundedYear?.toString() || "",
+      address: schoolData.address || "",
+      phone: schoolData.phone || "",
+      email: schoolData.email || "",
+      website: schoolData.website || "",
+      accreditation: schoolData.accreditation || ""
+    })
+  }, [schoolData])
+
   // Tab configuration
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -169,7 +276,7 @@ function SchoolManagementPage() {
             <Globe className="h-4 w-4 mr-2" />
             Website
           </Button>
-          <Button size="sm" onClick={() => setIsEditing(!isEditing)}>
+          <Button size="sm" onClick={isEditing ? () => setIsEditing(false) : handleEditClick}>
             {isEditing ? (
               <>
                 <X className="h-4 w-4 mr-2" />
@@ -253,140 +360,187 @@ function SchoolManagementPage() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            {/* School Information Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building className="h-5 w-5" />
-                  Informasi Sekolah
-                </CardTitle>
-                <CardDescription>Data dasar sekolah</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="schoolName">Nama Sekolah</Label>
-                    <Input 
-                      id="schoolName" 
-                      defaultValue={schoolData.name}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="established">Tahun Berdiri</Label>
-                    <Input 
-                      id="established" 
-                      defaultValue={schoolData.established}
-                      disabled={!isEditing}
-                    />
-                  </div>
+            {isLoadingSchools ? (
+              <div className="flex items-center justify-center min-h-[400px]">
+                <div className="text-center">
+                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent mx-auto mb-4" />
+                  <p className="text-muted-foreground">Loading data sekolah...</p>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="schoolAddress">Alamat</Label>
-                  <Input 
-                    id="schoolAddress" 
-                    defaultValue={schoolData.address}
-                    disabled={!isEditing}
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="schoolPhone">Telepon</Label>
-                    <Input 
-                      id="schoolPhone" 
-                      defaultValue={schoolData.phone}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="schoolEmail">Email</Label>
-                    <Input 
-                      id="schoolEmail" 
-                      defaultValue={schoolData.email}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="schoolWebsite">Website</Label>
-                    <Input 
-                      id="schoolWebsite" 
-                      defaultValue={schoolData.website}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="accreditation">Akreditasi</Label>
-                    <Input 
-                      id="accreditation" 
-                      defaultValue={schoolData.accreditation}
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
-                {isEditing && (
-                  <div className="flex space-x-2">
-                    <Button size="sm">
-                      <Save className="h-4 w-4 mr-2" />
-                      Simpan
-                    </Button>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              </div>
+            ) : (
+              <>
+                {/* School Information Card */}
+                <Card className={isEditing ? "ring-2 ring-primary/20 border-primary/30" : ""}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="flex items-center gap-2">
+                          <Building className="h-5 w-5" />
+                          Informasi Sekolah
+                          {isEditing && (
+                            <Badge variant="secondary" className="ml-2">
+                              <Edit className="h-3 w-3 mr-1" />
+                              Edit Mode
+                            </Badge>
+                          )}
+                        </CardTitle>
+                        <CardDescription>
+                          {isEditing ? "Edit data dasar sekolah" : "Data dasar sekolah"}
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="schoolName">Nama Sekolah</Label>
+                        <Input 
+                          id="schoolName" 
+                          value={formData.name}
+                          onChange={(e) => handleInputChange('name', e.target.value)}
+                          disabled={!isEditing}
+                          autoFocus={isEditing}
+                          className={isEditing ? "ring-2 ring-primary/20" : ""}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="foundedYear">Tahun Berdiri</Label>
+                        <Input 
+                          id="foundedYear" 
+                          value={formData.foundedYear}
+                          onChange={(e) => handleInputChange('foundedYear', e.target.value)}
+                          disabled={!isEditing}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="schoolAddress">Alamat</Label>
+                      <Input 
+                        id="schoolAddress" 
+                        value={formData.address}
+                        onChange={(e) => handleInputChange('address', e.target.value)}
+                        disabled={!isEditing}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="schoolPhone">Telepon</Label>
+                        <Input 
+                          id="schoolPhone" 
+                          value={formData.phone}
+                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          disabled={!isEditing}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="schoolEmail">Email</Label>
+                        <Input 
+                          id="schoolEmail" 
+                          value={formData.email}
+                          onChange={(e) => handleInputChange('email', e.target.value)}
+                          disabled={!isEditing}
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="schoolWebsite">Website</Label>
+                        <Input 
+                          id="schoolWebsite" 
+                          value={formData.website}
+                          onChange={(e) => handleInputChange('website', e.target.value)}
+                          disabled={!isEditing}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="accreditation">Akreditasi</Label>
+                        <Input 
+                          id="accreditation" 
+                          value={formData.accreditation}
+                          onChange={(e) => handleInputChange('accreditation', e.target.value)}
+                          disabled={!isEditing}
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Tombol Save dan Cancel */}
+                    {isEditing && (
+                      <div className="flex space-x-2 pt-4 border-t">
+                        <Button 
+                          size="sm" 
+                          onClick={handleSave}
+                          disabled={isSaving}
+                        >
+                          {isSaving ? (
+                            <>
+                              <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                              Menyimpan...
+                            </>
+                          ) : (
+                            <>
+                              <Save className="h-4 w-4 mr-2" />
+                              Simpan
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
 
-            {/* Statistics Cards */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Siswa</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{schoolData.totalStudents.toLocaleString()}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Aktif tahun ajaran ini
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Guru</CardTitle>
-                  <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{schoolData.totalTeachers}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Guru tetap dan honorer
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Kelas</CardTitle>
-                  <Building className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{schoolData.totalClasses}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Kelas aktif
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{schoolData.totalStaff}</div>
-                  <p className="text-xs text-muted-foreground">
-                    Staff administrasi
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+                {/* Statistics Cards */}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Siswa</CardTitle>
+                      <Users className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{schoolData.totalStudents.toLocaleString()}</div>
+                      <p className="text-xs text-muted-foreground">
+                        Aktif tahun ajaran ini
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Guru</CardTitle>
+                      <GraduationCap className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{schoolData.totalTeachers}</div>
+                      <p className="text-xs text-muted-foreground">
+                        Guru tetap dan honorer
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Kelas</CardTitle>
+                      <Building className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{schoolData.totalClasses}</div>
+                      <p className="text-xs text-muted-foreground">
+                        Kelas aktif
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
+                      <Users className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{schoolData.totalStaff}</div>
+                      <p className="text-xs text-muted-foreground">
+                        Staff administrasi
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
 
