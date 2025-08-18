@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { RouteGuard } from "@/components/auth/route-guard"
 import "@/styles/globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -19,14 +20,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className={inter.className}>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          {/* <SiteHeader /> */}
-          <main className="flex-1 overflow-auto p-4">{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
-    </div>
+    <RouteGuard>
+      <div className={inter.className}>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            {/* <SiteHeader /> */}
+            <main className="flex-1 overflow-auto p-4">{children}</main>
+          </SidebarInset>
+        </SidebarProvider>
+      </div>
+    </RouteGuard>
   )
 }

@@ -9,7 +9,20 @@ console.log('✅ Parsed Origins:', origins);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  // allowedDevOrigins: origins,
+  // Handle cross-origin requests for development
+  async headers() {
+    return [
+      {
+        source: '/_next/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*'
+          }
+        ]
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;
