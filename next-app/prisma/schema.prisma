@@ -13,3 +13,266 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?   // Password hash untuk credentials login
+  emailVerified DateTime?
+  image         String?
+  role          UserRole  @default(USER)
+  permissions   Json?     // Store additional permissions as JSON
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+  TEACHER
+  STUDENT
+  STAFF
+  PARENT
+  USER
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// School Management Models
+model School {
+  id            String   @id @default(cuid())
+  name          String
+  foundedYear   Int
+  address       String
+  phone         String
+  email         String
+  website       String?
+  accreditation String?
+  totalStudents Int      @default(0)
+  totalTeachers Int      @default(0)
+  totalClasses  Int      @default(0)
+  totalStaff    Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  academicYears AcademicYear[]
+  departments   Department[]
+  classes       Class[]
+  teachers      Teacher[]
+  students      Student[]
+  staff         Staff[]
+  Major         Major[]
+  Subject       Subject[]
+
+  @@map("schools")
+}
+
+model AcademicYear {
+  id        String   @id @default(cuid())
+  name      String // e.g., "2024/2025"
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean  @default(false)
+  schoolId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  school  School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  classes Class[]
+
+  @@map("academic_years")
+}
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String // e.g., "Akademik", "Kesiswaan", "Sarana Prasarana"
+  description String?
+  schoolId    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  school School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  staff  Staff[]
+
+  @@map("departments")
+}
+
+model Major {
+  id          String   @id @default(cuid())
+  name        String // e.g., "IPA", "IPS", "Bahasa"
+  code        String   @unique
+  description String?
+  schoolId    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  school  School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  classes Class[]
+
+  @@map("majors")
+}
+
+model Class {
+  id              String   @id @default(cuid())
+  name            String // e.g., "X IPA 1", "XI IPS 2"
+  grade           Int // e.g., 10, 11, 12
+  capacity        Int      @default(40)
+  currentStudents Int      @default(0)
+  academicYearId  String
+  majorId         String?
+  schoolId        String
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  academicYear AcademicYear @relation(fields: [academicYearId], references: [id], onDelete: Cascade)
+  major        Major?       @relation(fields: [majorId], references: [id])
+  school       School       @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  students     Student[]
+  teachers     Teacher[]
+
+  @@map("classes")
+}
+
+model Teacher {
+  id         String   @id @default(cuid())
+  employeeId String   @unique
+  name       String
+  email      String   @unique
+  phone      String?
+  address    String?
+  position   String // e.g., "Guru Tetap", "Guru Honorer"
+  subject    String? // Mata pelajaran yang diampu
+  hireDate   DateTime
+  isActive   Boolean  @default(true)
+  schoolId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  school   School    @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  classes  Class[]
+  subjects Subject[]
+
+  @@map("teachers")
+}
+
+model Student {
+  id        String    @id @default(cuid())
+  studentId String    @unique
+  name      String
+  email     String?   @unique
+  phone     String?
+  address   String?
+  birthDate DateTime?
+  gender    Gender
+  classId   String
+  schoolId  String
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  class  Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@map("students")
+}
+
+model Staff {
+  id           String   @id @default(cuid())
+  employeeId   String   @unique
+  name         String
+  email        String   @unique
+  phone        String?
+  address      String?
+  position     String // e.g., "Staff Administrasi", "Staff IT"
+  departmentId String
+  hireDate     DateTime
+  isActive     Boolean  @default(true)
+  schoolId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  school     School     @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@map("staff")
+}
+
+model Subject {
+  id          String   @id @default(cuid())
+  name        String
+  code        String   @unique
+  description String?
+  credits     Int      @default(1)
+  schoolId    String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  school   School    @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  teachers Teacher[]
+
+  @@map("subjects")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}

@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
 import { 
   Building, 
   Users, 
@@ -24,18 +24,40 @@ import {
   Save,
   X
 } from "lucide-react"
+import { withAdminAuth } from "@/components/auth/with-auth"
 
-export default function SchoolManagementPage() {
-  const [activeTab, setActiveTab] = useState("overview")
+function SchoolManagementPage() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  
+  // Get active tab from URL query parameter
+  const [activeTab, setActiveTab] = useState(() => {
+    return searchParams.get('tab') || 'overview'
+  })
   const [isEditing, setIsEditing] = useState(false)
+
+  // Update URL when tab changes
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId)
+    const params = new URLSearchParams(searchParams)
+    params.set('tab', tabId)
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
+  // Sync with URL changes
+  useEffect(() => {
+    const tab = searchParams.get('tab') || 'overview'
+    setActiveTab(tab)
+  }, [searchParams])
 
   // Mock data untuk sekolah
   const schoolData = {
     name: "SMA UII Yogyakarta",
     address: "Jl. Kaliurang KM 14.5, Sleman, Yogyakarta",
     phone: "0274-895123",
-    email: "info@sma-uii.ac.id",
-    website: "www.sma-uii.ac.id",
+    email: "info@smauiiyk.sch.id",
+    website: "www.smauiiyk.sch.id",
     established: "1995",
     accreditation: "A",
     principal: "Drs. Ahmad Rizki, M.Pd",
@@ -71,28 +93,28 @@ export default function SchoolManagementPage() {
     {
       position: "Kepala Sekolah",
       name: "Drs. Ahmad Rizki, M.Pd",
-      email: "kepsek@sma-uii.ac.id",
+      email: "kepsek@smauiiyk.sch.id",
       phone: "0274-895123",
       department: "Manajemen"
     },
     {
       position: "Wakil Kepala Sekolah",
       name: "Dra. Siti Aminah, M.Pd",
-      email: "wakasek@sma-uii.ac.id",
+      email: "wakasek@smauiiyk.sch.id",
       phone: "0274-895124",
       department: "Akademik"
     },
     {
       position: "Kepala TU",
       name: "Budi Santoso, S.Pd",
-      email: "katu@sma-uii.ac.id",
+      email: "katu@smauiiyk.sch.id",
       phone: "0274-895125",
       department: "Administrasi"
     },
     {
       position: "Kepala Perpustakaan",
       name: "Rina Sari, S.Pd",
-      email: "kapus@sma-uii.ac.id",
+      email: "kapus@smauiiyk.sch.id",
       phone: "0274-895126",
       department: "Perpustakaan"
     }
@@ -126,6 +148,14 @@ export default function SchoolManagementPage() {
     }
   ]
 
+  // Tab configuration
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'academic', label: 'Akademik' },
+    { id: 'organization', label: 'Organisasi' },
+    { id: 'streams', label: 'Jurusan' }
+  ]
+
   return (
     <div className="flex-1 space-y-6 p-6">
       {/* Header */}
@@ -155,339 +185,420 @@ export default function SchoolManagementPage() {
         </div>
       </div>
 
-      {/* Settings Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="academic">Akademik</TabsTrigger>
-          <TabsTrigger value="organization">Organisasi</TabsTrigger>
-          <TabsTrigger value="streams">Jurusan</TabsTrigger>
-        </TabsList>
-
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-6">
-          {/* School Information Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Building className="h-5 w-5" />
-                Informasi Sekolah
-              </CardTitle>
-              <CardDescription>Data dasar sekolah</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="schoolName">Nama Sekolah</Label>
-                  <Input 
-                    id="schoolName" 
-                    defaultValue={schoolData.name}
-                    disabled={!isEditing}
+      {/* Enhanced Tab Navigation with Animation */}
+      <div className="space-y-6">
+        <div className="relative">
+          <div className="flex space-x-1 bg-muted p-1 rounded-lg">
+            {tabs.map((tab, index) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id)}
+                className={`
+                  relative flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-out
+                  ${activeTab === tab.id 
+                    ? 'text-primary' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
+                  }
+                `}
+              >
+                {/* Active Tab Background */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-background rounded-md shadow-sm border border-border"
+                    initial={false}
+                    transition={{
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 40,
+                      mass: 1.2
+                    }}
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="established">Tahun Berdiri</Label>
-                  <Input 
-                    id="established" 
-                    defaultValue={schoolData.established}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="schoolAddress">Alamat</Label>
-                <Input 
-                  id="schoolAddress" 
-                  defaultValue={schoolData.address}
-                  disabled={!isEditing}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="schoolPhone">Telepon</Label>
-                  <Input 
-                    id="schoolPhone" 
-                    defaultValue={schoolData.phone}
-                    disabled={!isEditing}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="schoolEmail">Email</Label>
-                  <Input 
-                    id="schoolEmail" 
-                    defaultValue={schoolData.email}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="schoolWebsite">Website</Label>
-                  <Input 
-                    id="schoolWebsite" 
-                    defaultValue={schoolData.website}
-                    disabled={!isEditing}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="accreditation">Akreditasi</Label>
-                  <Input 
-                    id="accreditation" 
-                    defaultValue={schoolData.accreditation}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              {isEditing && (
-                <div className="flex space-x-2">
-                  <Button size="sm">
-                    <Save className="h-4 w-4 mr-2" />
-                    Simpan
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Statistics Cards */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Siswa</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{schoolData.totalStudents.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
-                  Aktif tahun ajaran ini
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Guru</CardTitle>
-                <GraduationCap className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{schoolData.totalTeachers}</div>
-                <p className="text-xs text-muted-foreground">
-                  Guru tetap dan honorer
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Kelas</CardTitle>
-                <Building className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{schoolData.totalClasses}</div>
-                <p className="text-xs text-muted-foreground">
-                  Kelas aktif
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{schoolData.totalStaff}</div>
-                <p className="text-xs text-muted-foreground">
-                  Staff administrasi
-                </p>
-              </CardContent>
-            </Card>
+                )}
+                
+                {/* Tab Label */}
+                <span className="relative z-10">
+                  {tab.label}
+                </span>
+              </button>
+            ))}
           </div>
-        </TabsContent>
+          
+          {/* Floating Active Indicator */}
+          <motion.div
+            layoutId="floatingIndicator"
+            className="absolute top-1 bottom-1 bg-primary/10 border border-primary/20 rounded-md"
+            initial={false}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 35,
+              mass: 1.5
+            }}
+            style={{
+              width: `${100 / tabs.length}%`,
+              left: `${tabs.findIndex(tab => tab.id === activeTab) * (100 / tabs.length)}%`
+            }}
+          />
+        </div>
+      </div>
 
-        {/* Academic Tab */}
-        <TabsContent value="academic" className="space-y-6">
-          {/* Academic Year Management */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                Tahun Ajaran
-              </CardTitle>
-              <CardDescription>Manajemen tahun ajaran aktif</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <h4 className="font-medium">Tahun Ajaran Aktif</h4>
-                  <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Tambah Tahun Ajaran
-                  </Button>
+      {/* Tab Content with Animation */}
+      <AnimatePresence mode="wait">
+        {activeTab === "overview" && (
+          <motion.div
+            key="overview"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {/* School Information Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="h-5 w-5" />
+                  Informasi Sekolah
+                </CardTitle>
+                <CardDescription>Data dasar sekolah</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="schoolName">Nama Sekolah</Label>
+                    <Input 
+                      id="schoolName" 
+                      defaultValue={schoolData.name}
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="established">Tahun Berdiri</Label>
+                    <Input 
+                      id="established" 
+                      defaultValue={schoolData.established}
+                      disabled={!isEditing}
+                    />
+                  </div>
                 </div>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Tahun Ajaran</TableHead>
-                      <TableHead>Periode</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Semester</TableHead>
-                      <TableHead>Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {academicYears.map((year) => (
-                      <TableRow key={year.id}>
-                        <TableCell className="font-medium">{year.name}</TableCell>
-                        <TableCell>{year.startDate} - {year.endDate}</TableCell>
-                        <TableCell>
-                          <Badge variant={year.status === "active" ? "default" : "secondary"}>
-                            {year.status === "active" ? "Aktif" : "Selesai"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{year.semester}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="sm">
-                              <Edit className="h-4 w-4" />
+                <div className="space-y-2">
+                  <Label htmlFor="schoolAddress">Alamat</Label>
+                  <Input 
+                    id="schoolAddress" 
+                    defaultValue={schoolData.address}
+                    disabled={!isEditing}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="schoolPhone">Telepon</Label>
+                    <Input 
+                      id="schoolPhone" 
+                      defaultValue={schoolData.phone}
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="schoolEmail">Email</Label>
+                    <Input 
+                      id="schoolEmail" 
+                      defaultValue={schoolData.email}
+                      disabled={!isEditing}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="schoolWebsite">Website</Label>
+                    <Input 
+                      id="schoolWebsite" 
+                      defaultValue={schoolData.website}
+                      disabled={!isEditing}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="accreditation">Akreditasi</Label>
+                    <Input 
+                      id="accreditation" 
+                      defaultValue={schoolData.accreditation}
+                      disabled={!isEditing}
+                    />
+                  </div>
+                </div>
+                {isEditing && (
+                  <div className="flex space-x-2">
+                    <Button size="sm">
+                      <Save className="h-4 w-4 mr-2" />
+                      Simpan
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Statistics Cards */}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Siswa</CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{schoolData.totalStudents.toLocaleString()}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Aktif tahun ajaran ini
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Guru</CardTitle>
+                  <GraduationCap className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{schoolData.totalTeachers}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Guru tetap dan honorer
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Kelas</CardTitle>
+                  <Building className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{schoolData.totalClasses}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Kelas aktif
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{schoolData.totalStaff}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Staff administrasi
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
+        )}
+
+        {activeTab === "academic" && (
+          <motion.div
+            key="academic"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {/* Academic Year Management */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Tahun Ajaran
+                </CardTitle>
+                <CardDescription>Manajemen tahun ajaran aktif</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">Tahun Ajaran Aktif</h4>
+                    <Button size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Tambah Tahun Ajaran
+                    </Button>
+                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Tahun Ajaran</TableHead>
+                        <TableHead>Periode</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Semester</TableHead>
+                        <TableHead>Aksi</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {academicYears.map((year) => (
+                        <TableRow key={year.id}>
+                          <TableCell className="font-medium">{year.name}</TableCell>
+                          <TableCell>{year.startDate} - {year.endDate}</TableCell>
+                          <TableCell>
+                            <Badge variant={year.status === "active" ? "default" : "secondary"}>
+                              {year.status === "active" ? "Aktif" : "Selesai"}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>{year.semester}</TableCell>
+                          <TableCell>
+                            <div className="flex space-x-2">
+                              <Button variant="outline" size="sm">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button variant="outline" size="sm">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
+        {activeTab === "organization" && (
+          <motion.div
+            key="organization"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {/* Organizational Structure */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  Struktur Organisasi
+                </CardTitle>
+                <CardDescription>Jabatan dan struktur kepemimpinan sekolah</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">Jabatan Kepemimpinan</h4>
+                    <Button size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Tambah Jabatan
+                    </Button>
+                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Jabatan</TableHead>
+                        <TableHead>Nama</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Telepon</TableHead>
+                        <TableHead>Departemen</TableHead>
+                        <TableHead>Aksi</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {organizationalStructure.map((position, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium">{position.position}</TableCell>
+                          <TableCell>{position.name}</TableCell>
+                          <TableCell>{position.email}</TableCell>
+                          <TableCell>{position.phone}</TableCell>
+                          <TableCell>{position.department}</TableCell>
+                          <TableCell>
+                            <div className="flex space-x-2">
+                              <Button variant="outline" size="sm">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button variant="outline" size="sm">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
+        {activeTab === "streams" && (
+          <motion.div
+            key="streams"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            {/* Academic Streams */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <GraduationCap className="h-5 w-5" />
+                  Jurusan/Program Studi
+                </CardTitle>
+                <CardDescription>Manajemen jurusan dan program studi</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">Daftar Jurusan</h4>
+                    <Button size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Tambah Jurusan
+                    </Button>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {streams.map((stream) => (
+                      <Card key={stream.id} className="p-4">
+                        <CardHeader className="p-0 pb-4">
+                          <CardTitle className="text-lg">{stream.name}</CardTitle>
+                          <CardDescription className="text-sm">
+                            {stream.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-3">
+                          <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>
+                              <span className="text-muted-foreground">Siswa:</span>
+                              <p className="font-medium">{stream.totalStudents}</p>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Kelas:</span>
+                              <p className="font-medium">{stream.totalClasses}</p>
+                            </div>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground text-sm">Mata Pelajaran:</span>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {stream.subjects.map((subject, index) => (
+                                <Badge key={index} variant="secondary" className="text-xs">
+                                  {subject}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex space-x-2 pt-2">
+                            <Button variant="outline" size="sm" className="flex-1">
+                              <Edit className="h-4 w-4 mr-2" />
+                              Edit
                             </Button>
                             <Button variant="outline" size="sm">
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
+                        </CardContent>
+                      </Card>
                     ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Organization Tab */}
-        <TabsContent value="organization" className="space-y-6">
-          {/* Organizational Structure */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                Struktur Organisasi
-              </CardTitle>
-              <CardDescription>Jabatan dan struktur kepemimpinan sekolah</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <h4 className="font-medium">Jabatan Kepemimpinan</h4>
-                  <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Tambah Jabatan
-                  </Button>
+                  </div>
                 </div>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Jabatan</TableHead>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Telepon</TableHead>
-                      <TableHead>Departemen</TableHead>
-                      <TableHead>Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {organizationalStructure.map((position, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{position.position}</TableCell>
-                        <TableCell>{position.name}</TableCell>
-                        <TableCell>{position.email}</TableCell>
-                        <TableCell>{position.phone}</TableCell>
-                        <TableCell>{position.department}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="sm">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Streams Tab */}
-        <TabsContent value="streams" className="space-y-6">
-          {/* Academic Streams */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <GraduationCap className="h-5 w-5" />
-                Jurusan/Program Studi
-              </CardTitle>
-              <CardDescription>Manajemen jurusan dan program studi</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <h4 className="font-medium">Daftar Jurusan</h4>
-                  <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Tambah Jurusan
-                  </Button>
-                </div>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {streams.map((stream) => (
-                    <Card key={stream.id} className="p-4">
-                      <CardHeader className="p-0 pb-4">
-                        <CardTitle className="text-lg">{stream.name}</CardTitle>
-                        <CardDescription className="text-sm">
-                          {stream.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="p-0 space-y-3">
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div>
-                            <span className="text-muted-foreground">Siswa:</span>
-                            <p className="font-medium">{stream.totalStudents}</p>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Kelas:</span>
-                            <p className="font-medium">{stream.totalClasses}</p>
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground text-sm">Mata Pelajaran:</span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {stream.subjects.map((subject, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs">
-                                {subject}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="flex space-x-2 pt-2">
-                          <Button variant="outline" size="sm" className="flex-1">
-                            <Edit className="h-4 w-4 mr-2" />
-                            Edit
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
+
+export default withAdminAuth(SchoolManagementPage)
