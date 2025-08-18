@@ -41,7 +41,7 @@ export default function SettingsPage() {
   }
 
   const ldapConfig = {
-    server: "ldap.sma-uii.ac.id",
+    server: "ldap.smauiiyk.sch.id",
     port: "389",
     baseDN: "dc=sma-uii,dc=ac,dc=id",
     status: "connected",
@@ -114,7 +114,7 @@ export default function SettingsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="schoolEmail">Email</Label>
-                  <Input id="schoolEmail" defaultValue="info@sma-uii.ac.id" />
+                  <Input id="schoolEmail" defaultValue="info@smauiiyk.sch.id" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">

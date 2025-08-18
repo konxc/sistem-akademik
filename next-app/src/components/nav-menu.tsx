@@ -1,5 +1,5 @@
 "use client"
-import { ElementType } from "react"
+import { ElementType, Suspense } from "react"
 
 import {
   type Icon,
@@ -36,8 +36,7 @@ interface MenuGroup {
   }[]
 }
 
-
-export function NavMenu({ menus }: MenuGroup) {
+function NavMenuContent({ menus }: MenuGroup) {
   const { isMobile } = useSidebar()
 
   const pathname = usePathname()
@@ -93,4 +92,12 @@ export function NavMenu({ menus }: MenuGroup) {
       </Collapsible>
     </SidebarGroup>
   ))
+}
+
+export function NavMenu({ menus }: MenuGroup) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NavMenuContent menus={menus} />
+    </Suspense>
+  )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -22,7 +22,7 @@ import { Search, Plus, Filter, MoreHorizontal, UserCheck, Users, GraduationCap, 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useRouter, useSearchParams } from "next/navigation"
 
-export default function UsersPage() {
+function UsersPageContent() {
   const [searchTerm, setSearchTerm] = useState("")
 
   // Get tab from URL params
@@ -43,8 +43,6 @@ export default function UsersPage() {
       setActiveTab("students")
     }
   }, [tabParam])
-
-
 
   const students = [
     {
@@ -98,10 +96,10 @@ export default function UsersPage() {
     },
     {
       id: "3",
-      name: "Sari Indrawati, S.Pd",
-      nip: "197203121998032001",
+      name: "Dra. Siti Aisyah",
+      nip: "197002201992032003",
       phone: "081234567895",
-      subject: null,
+      subject: "Kimia",
       status: "active",
     },
   ]
@@ -109,317 +107,302 @@ export default function UsersPage() {
   const staff = [
     {
       id: "1",
-      name: "Andi Wijaya",
-      nip: "198001011999031001",
+      name: "Sri Wahyuni, S.E",
+      nip: "198003151995032004",
       phone: "081234567896",
-      position: "Tata Usaha",
+      position: "Staff Administrasi",
       status: "active",
     },
     {
       id: "2",
-      name: "Rina Sari",
-      nip: "198505102005032002",
+      name: "Joko Widodo, S.Kom",
+      nip: "198504201996031005",
       phone: "081234567897",
-      position: "Perpustakaan",
+      position: "Staff IT",
       status: "active",
     },
   ]
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-        <SidebarTrigger className="-ml-1" />
-        <Separator orientation="vertical" className="mr-2 h-4" />
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Dashboard</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Manajemen Pengguna</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <Badge variant="outline" className="ml-auto">
-          <Settings className="h-3 w-3 mr-1" />
-          LDAP Sync
-        </Badge>
-      </header>
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "active":
+        return <Badge variant="default" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Aktif</Badge>
+      case "inactive":
+        return <Badge variant="destructive">Tidak Aktif</Badge>
+      default:
+        return <Badge variant="outline">Belum Diketahui</Badge>
+    }
+  }
 
-      <div className="flex-1 space-y-6 p-6">
-        {/* Search and Actions */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Cari pengguna..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 w-[300px]"
-              />
-            </div>
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-1" />
-              Filter
-            </Button>
-          </div>
-          <Button>
-            <Plus className="h-4 w-4 mr-1" />
+  const handleTabChange = (value: string) => {
+    setActiveTab(value)
+    // Update URL params
+    if (value === "teachers") {
+      router.push("?tab=teacher")
+    } else if (value === "staff") {
+      router.push("?tab=staff")
+    } else {
+      router.push("?tab=students")
+    }
+  }
+
+  return (
+    <div className="flex-1 space-y-6 p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Manajemen Pengguna</h1>
+          <p className="text-muted-foreground">Kelola data siswa, guru, dan staff sekolah</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" size="sm">
+            <Filter className="h-4 w-4 mr-2" />
+            Filter
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 mr-2" />
             Tambah Pengguna
           </Button>
         </div>
-
-        {/* User Statistics */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Siswa</CardTitle>
-              <GraduationCap className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1,247</div>
-              <p className="text-xs text-muted-foreground">+12 siswa baru bulan ini</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Guru</CardTitle>
-              <UserCheck className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">89</div>
-              <p className="text-xs text-muted-foreground">+3 guru baru semester ini</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">24</div>
-              <p className="text-xs text-muted-foreground">Staff administrasi aktif</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* User Tables */}
-        <Tabs value={activeTab} onValueChange={(val) => {
-          setActiveTab(val)
-          const newTab = val === "teachers" ? "teacher" : val === "staff" ? "staff" : "student"
-          router.push(`users?tab=${newTab}`)
-        }} className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="students">Siswa</TabsTrigger>
-            <TabsTrigger value="teachers">Guru</TabsTrigger>
-            <TabsTrigger value="staff">Staff</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="students" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Data Siswa</CardTitle>
-                <CardDescription>Daftar siswa yang terdaftar di sistem LDAP</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NISN</TableHead>
-                      <TableHead>No. Telepon</TableHead>
-                      <TableHead>Kelas</TableHead>
-                      <TableHead>Rombel</TableHead>
-                      <TableHead>Saldo</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="w-[50px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {students.map((student) => (
-                      <TableRow key={student.id}>
-                        <TableCell className="flex items-center space-x-2">
-                          <Avatar className="h-8 w-8">
-                            <AvatarImage src={`/placeholder.svg?height=32&width=32`} />
-                            <AvatarFallback>
-                              {student.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="font-medium">{student.name}</span>
-                        </TableCell>
-                        <TableCell>{student.nisn}</TableCell>
-                        <TableCell>{student.phone}</TableCell>
-                        <TableCell>{student.grade}</TableCell>
-                        <TableCell>{student.group}</TableCell>
-                        <TableCell>{student.balance}</TableCell>
-                        <TableCell>
-                          <Badge variant={student.status === "active" ? "default" : "secondary"}>
-                            {student.status === "active" ? "Aktif" : "Tidak Aktif"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Detail</DropdownMenuItem>
-                              <DropdownMenuItem className="text-red-600">Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="teachers" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Data Guru</CardTitle>
-                <CardDescription>Daftar guru yang terdaftar di sistem LDAP</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NIP</TableHead>
-                      <TableHead>No. Telepon</TableHead>
-                      <TableHead>Mata Pelajaran</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="w-[50px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {teachers.map((teacher) => (
-                      <TableRow key={teacher.id}>
-                        <TableCell className="flex items-center space-x-2">
-                          <Avatar className="h-8 w-8">
-                            <AvatarImage src={`/placeholder.svg?height=32&width=32`} />
-                            <AvatarFallback>
-                              {teacher.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="font-medium">{teacher.name}</span>
-                        </TableCell>
-                        <TableCell>{teacher.nip}</TableCell>
-                        <TableCell>{teacher.phone}</TableCell>
-                        <TableCell>
-                          {teacher.subject ? (
-                            <Badge variant="outline">{teacher.subject}</Badge>
-                          ) : (
-                            <span className="text-muted-foreground">-</span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={teacher.status === "active" ? "default" : "secondary"}>
-                            {teacher.status === "active" ? "Aktif" : "Tidak Aktif"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Assign Subject</DropdownMenuItem>
-                              <DropdownMenuItem>Detail</DropdownMenuItem>
-                              <DropdownMenuItem className="text-red-600">Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="staff" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Data Staff</CardTitle>
-                <CardDescription>Daftar staff administrasi yang terdaftar di sistem LDAP</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NIP</TableHead>
-                      <TableHead>No. Telepon</TableHead>
-                      <TableHead>Posisi</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="w-[50px]"></TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {staff.map((member) => (
-                      <TableRow key={member.id}>
-                        <TableCell className="flex items-center space-x-2">
-                          <Avatar className="h-8 w-8">
-                            <AvatarImage src={`/placeholder.svg?height=32&width=32`} />
-                            <AvatarFallback>
-                              {member.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="font-medium">{member.name}</span>
-                        </TableCell>
-                        <TableCell>{member.nip}</TableCell>
-                        <TableCell>{member.phone}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{member.position}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={member.status === "active" ? "default" : "secondary"}>
-                            {member.status === "active" ? "Aktif" : "Tidak Aktif"}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Detail</DropdownMenuItem>
-                              <DropdownMenuItem className="text-red-600">Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
       </div>
+
+      {/* Breadcrumb */}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Pengguna</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      {/* Search and Filter */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center space-x-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Cari pengguna..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+            <Button variant="outline">
+              <Filter className="h-4 w-4 mr-2" />
+              Filter Lanjutan
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tabs */}
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="students" className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4" />
+            Siswa
+          </TabsTrigger>
+          <TabsTrigger value="teachers" className="flex items-center gap-2">
+            <UserCheck className="h-4 w-4" />
+            Guru
+          </TabsTrigger>
+          <TabsTrigger value="staff" className="flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            Staff
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Students Tab */}
+        <TabsContent value="students" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5" />
+                Daftar Siswa
+              </CardTitle>
+              <CardDescription>Kelola data siswa sekolah</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>NISN</TableHead>
+                    <TableHead>Kelas</TableHead>
+                    <TableHead>Saldo</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {students.map((student) => (
+                    <TableRow key={student.id}>
+                      <TableCell className="flex items-center space-x-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarFallback>{student.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{student.name}</div>
+                          <div className="text-sm text-muted-foreground">{student.phone}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="font-medium">{student.nisn}</TableCell>
+                      <TableCell>{student.group}</TableCell>
+                      <TableCell className="font-medium">{student.balance}</TableCell>
+                      <TableCell>{getStatusBadge(student.status)}</TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
+                            <DropdownMenuItem>Hapus</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Teachers Tab */}
+        <TabsContent value="teachers" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <UserCheck className="h-5 w-5" />
+                Daftar Guru
+              </CardTitle>
+              <CardDescription>Kelola data guru sekolah</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>NIP</TableHead>
+                    <TableHead>Mata Pelajaran</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {teachers.map((teacher) => (
+                    <TableRow key={teacher.id}>
+                      <TableCell className="flex items-center space-x-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarFallback>{teacher.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{teacher.name}</div>
+                          <div className="text-sm text-muted-foreground">{teacher.phone}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="font-medium">{teacher.nip}</TableCell>
+                      <TableCell>{teacher.subject}</TableCell>
+                      <TableCell>{getStatusBadge(teacher.status)}</TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
+                            <DropdownMenuItem>Hapus</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Staff Tab */}
+        <TabsContent value="staff" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                Daftar Staff
+              </CardTitle>
+              <CardDescription>Kelola data staff sekolah</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nama</TableHead>
+                    <TableHead>NIP</TableHead>
+                    <TableHead>Posisi</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Aksi</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {staff.map((staffMember) => (
+                    <TableRow key={staffMember.id}>
+                      <TableCell className="flex items-center space-x-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarFallback>{staffMember.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">{staffMember.name}</div>
+                          <div className="text-sm text-muted-foreground">{staffMember.phone}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="font-medium">{staffMember.nip}</TableCell>
+                      <TableCell>{staffMember.position}</TableCell>
+                      <TableCell>{getStatusBadge(staffMember.status)}</TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
+                            <DropdownMenuItem>Hapus</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
+  )
+}
+
+export default function UsersPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UsersPageContent />
+    </Suspense>
   )
 }
