@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Mail, Lock, Eye, EyeOff, School, AlertCircle } from "lucide-react"
 import Link from "next/link"
+import { AuthDebug } from "@/components/debug/auth-debug"
 
 export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -21,6 +22,8 @@ export default function SignInPage() {
     password: "",
   })
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,7 +40,24 @@ export default function SignInPage() {
       if (result?.error) {
         setError("Email atau password salah")
       } else {
-        router.push("/dashboard")
+        // Decode callback URL if it exists
+        let targetUrl = '/dashboard'
+        if (callbackUrl) {
+          try {
+            const decodedCallback = decodeURIComponent(callbackUrl)
+            // Validate that the callback URL is safe (starts with /dashboard)
+            if (decodedCallback.startsWith('/dashboard')) {
+              targetUrl = decodedCallback
+            }
+          } catch (error) {
+            console.error('Error decoding callback URL:', error)
+            targetUrl = '/dashboard'
+          }
+        }
+        
+        // Use callback URL if available, otherwise redirect to dashboard
+        console.log('Redirecting to:', targetUrl)
+        router.push(targetUrl)
         router.refresh()
       }
     } catch (error) {
@@ -52,7 +72,7 @@ export default function SignInPage() {
     setError("")
     
     try {
-      await signIn("google", { callbackUrl: "/dashboard" })
+      await signIn("google", { callbackUrl })
     } catch (error) {
       setError("Terjadi kesalahan saat login dengan Google")
       setIsLoading(false)
@@ -254,6 +274,7 @@ export default function SignInPage() {
         <div className="text-center text-xs text-gray-500 dark:text-gray-400">
           <p>© 2024 SMA UII. Semua hak dilindungi.</p>
         </div>
+        <AuthDebug />
       </div>
     </div>
   )

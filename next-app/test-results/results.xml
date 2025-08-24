@@ -1,0 +1,852 @@
+<testsuites id="" name="" tests="140" failures="8" skipped="132" errors="0" time="55.095876000000004">
+<testsuite name="rombel-modal.spec.ts" timestamp="2025-08-20T03:46:26.999Z" hostname="chromium" tests="28" failures="8" skipped="20" time="98.747" errors="0">
+<testcase name="Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button" classname="rombel-modal.spec.ts" time="12.668">
+<failure message="rombel-modal.spec.ts:37:9 should open rombel modal when clicking manage rombel button" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:37:9 › Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should display form fields correctly" classname="rombel-modal.spec.ts" time="12.733">
+<failure message="rombel-modal.spec.ts:52:9 should display form fields correctly" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:52:9 › Rombel Modal Component › Basic Functionality › should display form fields correctly 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should show required field indicators" classname="rombel-modal.spec.ts" time="11.89">
+<failure message="rombel-modal.spec.ts:62:9 should show required field indicators" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:62:9 › Rombel Modal Component › Basic Functionality › should show required field indicators 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should disable submit button when form is incomplete" classname="rombel-modal.spec.ts" time="11.853">
+<failure message="rombel-modal.spec.ts:76:9 should disable submit button when form is incomplete" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:76:9 › Rombel Modal Component › Form Validation › should disable submit button when form is incomplete 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation errors for empty fields" classname="rombel-modal.spec.ts" time="11.374">
+<failure message="rombel-modal.spec.ts:98:9 should show validation errors for empty fields" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:98:9 › Rombel Modal Component › Form Validation › should show validation errors for empty fields 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation error for invalid max students" classname="rombel-modal.spec.ts" time="11.265">
+<failure message="rombel-modal.spec.ts:111:9 should show validation error for invalid max students" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:111:9 › Rombel Modal Component › Form Validation › should show validation error for invalid max students 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show form completion progress" classname="rombel-modal.spec.ts" time="11.839">
+<failure message="rombel-modal.spec.ts:128:9 should show form completion progress" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:128:9 › Rombel Modal Component › Form Validation › should show form completion progress 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should create rombel successfully" classname="rombel-modal.spec.ts" time="11.722">
+<failure message="rombel-modal.spec.ts:149:9 should create rombel successfully" type="FAILURE">
+<![CDATA[  [chromium] › rombel-modal.spec.ts:149:9 › Rombel Modal Component › Create Rombel › should create rombel successfully 
+
+    TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="school-management-page"]') to be visible
+
+
+      18 |     
+      19 |     // Wait for page to load
+    > 20 |     await page.waitForSelector('[data-testid="school-management-page"]', { timeout: 10000 })
+         |                ^
+      21 |     
+      22 |     // Mock authentication as SUPER_ADMIN
+      23 |     await page.addInitScript(() => {
+        at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/video.webm]]
+
+[[ATTACHMENT|rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should handle create API error" classname="rombel-modal.spec.ts" time="1.734">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should enter edit mode when clicking edit button" classname="rombel-modal.spec.ts" time="1.669">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should update rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should handle update API error - rombel not found" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should show enhanced confirmation when deleting editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should confirm delete editing rombel and close edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should cancel delete editing rombel and stay in edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should use simple confirmation for non-editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should auto-cleanup when editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should show warning for editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should handle concurrent operations gracefully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should display status bar information" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show loading state" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should track deleted rombels count" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show last action performed" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should reset form when modal opens" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should handle form validation state changes" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should support keyboard navigation" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should have proper ARIA labels" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Mobile Responsiveness › should work on mobile viewport" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="rombel-modal.spec.ts" timestamp="2025-08-20T03:46:26.999Z" hostname="firefox" tests="28" failures="0" skipped="28" time="0" errors="0">
+<testcase name="Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should display form fields correctly" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should show required field indicators" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should disable submit button when form is incomplete" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation errors for empty fields" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation error for invalid max students" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show form completion progress" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should create rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should handle create API error" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should enter edit mode when clicking edit button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should update rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should handle update API error - rombel not found" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should show enhanced confirmation when deleting editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should confirm delete editing rombel and close edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should cancel delete editing rombel and stay in edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should use simple confirmation for non-editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should auto-cleanup when editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should show warning for editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should handle concurrent operations gracefully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should display status bar information" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show loading state" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should track deleted rombels count" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show last action performed" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should reset form when modal opens" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should handle form validation state changes" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should support keyboard navigation" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should have proper ARIA labels" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Mobile Responsiveness › should work on mobile viewport" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="rombel-modal.spec.ts" timestamp="2025-08-20T03:46:26.999Z" hostname="webkit" tests="28" failures="0" skipped="28" time="0" errors="0">
+<testcase name="Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should display form fields correctly" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should show required field indicators" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should disable submit button when form is incomplete" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation errors for empty fields" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation error for invalid max students" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show form completion progress" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should create rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should handle create API error" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should enter edit mode when clicking edit button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should update rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should handle update API error - rombel not found" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should show enhanced confirmation when deleting editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should confirm delete editing rombel and close edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should cancel delete editing rombel and stay in edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should use simple confirmation for non-editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should auto-cleanup when editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should show warning for editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should handle concurrent operations gracefully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should display status bar information" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show loading state" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should track deleted rombels count" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show last action performed" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should reset form when modal opens" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should handle form validation state changes" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should support keyboard navigation" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should have proper ARIA labels" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Mobile Responsiveness › should work on mobile viewport" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="rombel-modal.spec.ts" timestamp="2025-08-20T03:46:26.999Z" hostname="Mobile Chrome" tests="28" failures="0" skipped="28" time="0" errors="0">
+<testcase name="Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should display form fields correctly" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should show required field indicators" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should disable submit button when form is incomplete" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation errors for empty fields" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation error for invalid max students" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show form completion progress" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should create rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should handle create API error" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should enter edit mode when clicking edit button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should update rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should handle update API error - rombel not found" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should show enhanced confirmation when deleting editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should confirm delete editing rombel and close edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should cancel delete editing rombel and stay in edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should use simple confirmation for non-editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should auto-cleanup when editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should show warning for editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should handle concurrent operations gracefully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should display status bar information" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show loading state" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should track deleted rombels count" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show last action performed" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should reset form when modal opens" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should handle form validation state changes" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should support keyboard navigation" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should have proper ARIA labels" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Mobile Responsiveness › should work on mobile viewport" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="rombel-modal.spec.ts" timestamp="2025-08-20T03:46:26.999Z" hostname="Mobile Safari" tests="28" failures="0" skipped="28" time="0" errors="0">
+<testcase name="Rombel Modal Component › Basic Functionality › should open rombel modal when clicking manage rombel button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should display form fields correctly" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Basic Functionality › should show required field indicators" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should disable submit button when form is incomplete" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation errors for empty fields" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show validation error for invalid max students" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form Validation › should show form completion progress" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should create rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Create Rombel › should handle create API error" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should enter edit mode when clicking edit button" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should update rombel successfully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Edit Rombel › should handle update API error - rombel not found" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should show enhanced confirmation when deleting editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should confirm delete editing rombel and close edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should cancel delete editing rombel and stay in edit mode" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Delete Rombel › should use simple confirmation for non-editing rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should auto-cleanup when editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should show warning for editing deleted rombel" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Error Handling &amp; Recovery › should handle concurrent operations gracefully" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should display status bar information" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show loading state" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should track deleted rombels count" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Status Bar &amp; Visual Feedback › should show last action performed" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should reset form when modal opens" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Form State Management › should handle form validation state changes" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should support keyboard navigation" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Accessibility &amp; Keyboard Navigation › should have proper ARIA labels" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Rombel Modal Component › Mobile Responsiveness › should work on mobile viewport" classname="rombel-modal.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

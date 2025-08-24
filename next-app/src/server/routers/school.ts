@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure, adminProcedure } from '../trpc';
 import { prisma } from '../../lib/db';
 import {
   createSchoolSchema,
@@ -27,6 +27,10 @@ import {
   createSubjectSchema,
   updateSubjectSchema,
   subjectQuerySchema,
+  createRombelSchema,
+  updateRombelSchema,
+  rombelQuerySchema,
+  departmentQuerySchema,
 } from '../../lib/schemas/school';
 import {
   getPaginationData,
@@ -152,6 +156,159 @@ export const schoolRouter = createTRPCRouter({
       }
     }),
 
+  // Department CRUD
+  getDepartments: protectedProcedure
+    .input(departmentQuerySchema)
+    .query(async ({ input }) => {
+      try {
+        const departments = await prisma.department.findMany({
+          where: {
+            schoolId: input.schoolId,
+            ...(input.isActive !== undefined && { isActive: input.isActive })
+          },
+          include: {
+            _count: {
+              select: {
+                staff: true
+              }
+            }
+          },
+          orderBy: { name: 'asc' }
+        })
+
+        // Transform data to include staff count
+        return departments.map(dept => ({
+          ...dept,
+          staffCount: dept._count.staff,
+          teacherCount: 0 // Teachers don't have department relation in current schema
+        }))
+      } catch (error) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal mengambil data departemen',
+          cause: error,
+        })
+      }
+    }),
+
+  createDepartment: adminProcedure
+    .input(createDepartmentSchema)
+    .mutation(async ({ input }) => {
+      try {
+        const department = await prisma.department.create({
+          data: input
+        })
+        return department
+      } catch (error) {
+        if (error.code === 'P2002') {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Nama departemen sudah ada',
+          })
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal membuat departemen',
+          cause: error,
+        })
+      }
+    }),
+
+  updateDepartment: adminProcedure
+    .input(updateDepartmentSchema)
+    .mutation(async ({ input }) => {
+      try {
+        const { id, ...data } = input
+        const department = await prisma.department.update({
+          where: { id },
+          data
+        })
+        return department
+      } catch (error) {
+        if (error.code === 'P2025') {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Departemen tidak ditemukan',
+          })
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal mengupdate departemen',
+          cause: error,
+        })
+      }
+    }),
+
+  deleteDepartment: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        // Check if department has staff
+        const staffCount = await prisma.staff.count({
+          where: { departmentId: input.id }
+        })
+
+        if (staffCount > 0) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Tidak dapat menghapus departemen yang masih memiliki staff',
+          })
+        }
+
+        await prisma.department.delete({
+          where: { id: input.id }
+        })
+        
+        return { success: true, message: 'Departemen berhasil dihapus' }
+      } catch (error) {
+        if (error instanceof TRPCError) throw error
+        
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus departemen',
+          cause: error,
+        })
+      }
+    }),
+
+  getDepartmentById: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        const department = await prisma.department.findUnique({
+          where: { id: input.id },
+          include: {
+            staff: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                position: true,
+                isActive: true
+              }
+            }
+          }
+        })
+
+        if (!department) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Departemen tidak ditemukan',
+          })
+        }
+
+        return department
+      } catch (error) {
+        if (error instanceof TRPCError) throw error
+        
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal mengambil data departemen',
+          cause: error,
+        })
+      }
+    }),
+
   // Academic Year CRUD
   getAcademicYears: protectedProcedure
     .input(z.object({
@@ -232,60 +389,34 @@ export const schoolRouter = createTRPCRouter({
       }
     }),
 
-  // Department CRUD
-  getDepartments: protectedProcedure
-    .input(z.object({
-      schoolId: z.string().cuid(),
-      isActive: z.boolean().optional(),
-    }))
-    .query(async ({ input }) => {
-      const where = {
-        schoolId: input.schoolId,
-        ...createActiveFilter(input.isActive),
-      };
-
-      const departments = await prisma.department.findMany({
-        where,
-        orderBy: { name: 'asc' },
-      });
-
-      return departments;
-    }),
-
-  createDepartment: protectedProcedure
-    .input(createDepartmentSchema)
+  deleteAcademicYear: protectedProcedure
+    .input(z.string().cuid())
     .mutation(async ({ input }) => {
       try {
-        const department = await prisma.department.create({
-          data: input,
+        // Check if academic year has associated classes
+        const classesCount = await prisma.class.count({
+          where: { academicYearId: input },
         });
 
-        return department;
+        if (classesCount > 0) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Tidak dapat menghapus tahun ajaran yang memiliki kelas',
+          });
+        }
+
+        await prisma.academicYear.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
       } catch (error: any) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: 'Gagal membuat departemen',
-        });
-      }
-    }),
-
-  updateDepartment: protectedProcedure
-    .input(z.object({
-      id: z.string().cuid(),
-      data: updateDepartmentSchema,
-    }))
-    .mutation(async ({ input }) => {
-      try {
-        const department = await prisma.department.update({
-          where: { id: input.id },
-          data: input.data,
-        });
-
-        return department;
-      } catch (error: any) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'Gagal mengupdate departemen',
+          message: 'Gagal menghapus tahun ajaran',
         });
       }
     }),
@@ -350,6 +481,59 @@ export const schoolRouter = createTRPCRouter({
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Gagal mengupdate jurusan',
+        });
+      }
+    }),
+
+  deleteMajor: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(async ({ input }) => {
+      try {
+        // Get major details to check name
+        const major = await prisma.major.findUnique({
+          where: { id: input },
+          select: { name: true }
+        });
+
+        if (!major) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Jurusan tidak ditemukan',
+          });
+        }
+
+        // Prevent deletion of "Umum" major
+        if (major.name === 'Umum') {
+          throw new TRPCError({
+            code: 'FORBIDDEN',
+            message: 'Jurusan "Umum" tidak dapat dihapus karena berisi mata pelajaran wajib',
+          });
+        }
+
+        // Check if major has associated classes
+        const classesCount = await prisma.class.count({
+          where: { majorId: input },
+        });
+
+        if (classesCount > 0) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Tidak dapat menghapus jurusan yang memiliki kelas',
+          });
+        }
+
+        await prisma.major.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
+      } catch (error: any) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus jurusan',
         });
       }
     }),
@@ -420,6 +604,50 @@ export const schoolRouter = createTRPCRouter({
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Gagal mengupdate kelas',
+        });
+      }
+    }),
+
+  deleteClass: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(async ({ input }) => {
+      try {
+        // Check if class has associated students
+        const studentsCount = await prisma.student.count({
+          where: { classId: input },
+        });
+
+        if (studentsCount > 0) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Tidak dapat menghapus kelas yang memiliki siswa',
+          });
+        }
+
+        // Check if class has associated teachers
+        const teachersCount = await prisma.teacher.count({
+          where: { classes: { some: { id: input } } },
+        });
+
+        if (teachersCount > 0) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Tidak dapat menghapus kelas yang memiliki guru',
+          });
+        }
+
+        await prisma.class.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
+      } catch (error: any) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus kelas',
         });
       }
     }),
@@ -495,6 +723,38 @@ export const schoolRouter = createTRPCRouter({
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Gagal mengupdate guru',
+        });
+      }
+    }),
+
+  deleteTeacher: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(async ({ input }) => {
+      try {
+        // Check if teacher has associated classes
+        const classesCount = await prisma.class.count({
+          where: { teachers: { some: { id: input } } },
+        });
+
+        if (classesCount > 0) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'Tidak dapat menghapus guru yang mengajar di kelas',
+          });
+        }
+
+        await prisma.teacher.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
+      } catch (error: any) {
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus guru',
         });
       }
     }),
@@ -584,6 +844,41 @@ export const schoolRouter = createTRPCRouter({
       }
     }),
 
+  deleteStudent: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(async ({ input }) => {
+      try {
+        // Get student info to update class count
+        const student = await prisma.student.findUnique({
+          where: { id: input },
+          select: { classId: true },
+        });
+
+        if (student?.classId) {
+          // Decrease class current students count
+          await prisma.class.update({
+            where: { id: student.classId },
+            data: {
+              currentStudents: {
+                decrement: 1,
+              },
+            },
+          });
+        }
+
+        await prisma.student.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
+      } catch (error: any) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus siswa',
+        });
+      }
+    }),
+
   // Staff CRUD
   getStaff: protectedProcedure
     .input(staffQuerySchema)
@@ -659,14 +954,33 @@ export const schoolRouter = createTRPCRouter({
       }
     }),
 
+  deleteStaff: protectedProcedure
+    .input(z.string().cuid())
+    .mutation(async ({ input }) => {
+      try {
+        await prisma.staff.delete({
+          where: { id: input },
+        });
+
+        return { success: true };
+      } catch (error: any) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus staff',
+        });
+      }
+    }),
+
   // Subject CRUD
   getSubjects: protectedProcedure
     .input(subjectQuerySchema)
     .query(async ({ input }) => {
-      const { page, limit, search, sortBy, sortOrder, credits, isActive } = input;
+      const { page, limit, search, sortBy, sortOrder, schoolId, majorId, credits, isActive } = input;
       const skip = (page - 1) * limit;
 
       const where = {
+        ...(schoolId && { schoolId }),
+        ...(majorId && { majorId }),
         ...createActiveFilter(isActive),
         ...(credits && { credits }),
         ...(search && createSearchFilter(search, ['name', 'code'])),
@@ -678,7 +992,7 @@ export const schoolRouter = createTRPCRouter({
           skip,
           take: limit,
           orderBy: createSortFilter(sortBy, sortOrder),
-          include: createIncludeFilter(['school', 'teachers']),
+          include: createIncludeFilter(['school', 'teachers', 'major']),
         }),
         prisma.subject.count({ where }),
       ]);
@@ -689,47 +1003,154 @@ export const schoolRouter = createTRPCRouter({
       };
     }),
 
-  createSubject: protectedProcedure
-    .input(createSubjectSchema)
-    .mutation(async ({ input }) => {
-      try {
-        const subject = await prisma.subject.create({
-          data: input,
-        });
+  // Get subjects grouped by major for tab display
+  getSubjectsByMajor: protectedProcedure
+    .input(z.object({
+      schoolId: z.string().cuid(),
+      isActive: z.boolean().optional(),
+    }))
+    .query(async ({ input }) => {
+      const { schoolId, isActive = true } = input;
 
-        return subject;
-      } catch (error: any) {
-        if (error.code === 'P2002') {
-          throw new TRPCError({
-            code: 'CONFLICT',
-            message: 'Mata pelajaran dengan kode yang sama sudah ada',
-          });
-        }
+      // Get all majors for this school
+      const majors = await prisma.major.findMany({
+        where: {
+          schoolId,
+          isActive,
+        },
+        orderBy: { name: 'asc' },
+        include: {
+          subjects: {
+            where: { isActive },
+            include: {
+              teachers: true,
+            },
+            orderBy: { name: 'asc' },
+          },
+        },
+      });
+
+      // Get subjects without major (umum)
+      const umumSubjects = await prisma.subject.findMany({
+        where: {
+          schoolId,
+          majorId: null,
+          isActive,
+        },
+        include: {
+          teachers: true,
+        },
+        orderBy: { name: 'asc' },
+      });
+
+      return {
+        majors: majors.map(major => ({
+          ...major,
+          subjects: major.subjects,
+        })),
+        umum: {
+          id: 'umum',
+          name: 'Umum',
+          code: 'UMUM',
+          description: 'Mata pelajaran wajib untuk semua jurusan',
+          subjects: umumSubjects,
+        },
+      };
+    }),
+
+  // Rombel CRUD
+  getRombels: protectedProcedure
+    .input(rombelQuerySchema)
+    .query(async ({ input }) => {
+      try {
+        const rombels = await prisma.rombel.findMany({
+          where: {
+            classId: input.classId,
+            ...(input.isActive !== undefined && { isActive: input.isActive })
+          },
+          orderBy: { name: 'asc' }
+        })
+        return rombels
+      } catch (error) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: 'Gagal membuat mata pelajaran',
-        });
+          message: 'Gagal mengambil data rombel',
+          cause: error,
+        })
       }
     }),
 
-  updateSubject: protectedProcedure
-    .input(z.object({
-      id: z.string().cuid(),
-      data: updateSubjectSchema,
-    }))
+  createRombel: adminProcedure
+    .input(createRombelSchema)
     .mutation(async ({ input }) => {
       try {
-        const subject = await prisma.subject.update({
-          where: { id: input.id },
-          data: input.data,
-        });
-
-        return subject;
-      } catch (error: any) {
+        const rombel = await prisma.rombel.create({
+          data: input
+        })
+        return rombel
+      } catch (error) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: 'Gagal mengupdate mata pelajaran',
-        });
+          message: 'Gagal membuat rombel',
+          cause: error,
+        })
+      }
+    }),
+
+  updateRombel: adminProcedure
+    .input(updateRombelSchema)
+    .mutation(async ({ input }) => {
+      try {
+        const { id, ...data } = input
+        const rombel = await prisma.rombel.update({
+          where: { id },
+          data
+        })
+        return rombel
+      } catch (error) {
+        if (error.code === 'P2025') {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Rombel tidak ditemukan',
+          })
+        }
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal mengupdate rombel',
+          cause: error,
+        })
+      }
+    }),
+
+  deleteRombel: adminProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        // Check if rombel has students
+        const studentCount = await prisma.student.count({
+          where: { rombelId: input.id }
+        })
+
+        if (studentCount > 0) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Tidak dapat menghapus rombel yang masih memiliki siswa',
+          })
+        }
+
+        await prisma.rombel.delete({
+          where: { id: input.id }
+        })
+        
+        return { success: true, message: 'Rombel berhasil dihapus' }
+      } catch (error) {
+        if (error instanceof TRPCError) throw error
+        
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Gagal menghapus rombel',
+          cause: error,
+        })
       }
     }),
 

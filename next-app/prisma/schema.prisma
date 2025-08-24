@@ -109,6 +109,7 @@ model School {
   staff         Staff[]
   Major         Major[]
   Subject       Subject[]
+  rombels       Rombel[]
 
   @@map("schools")
 }
@@ -141,7 +142,8 @@ model Department {
 
   // Relations
   school School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  staff  Staff[]
+  staff    Staff[]
+  teachers Teacher[]
 
   @@map("departments")
 }
@@ -159,6 +161,7 @@ model Major {
   // Relations
   school  School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   classes Class[]
+  subjects Subject[]
 
   @@map("majors")
 }
@@ -182,8 +185,28 @@ model Class {
   school       School       @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   students     Student[]
   teachers     Teacher[]
+  rombels      Rombel[]
 
   @@map("classes")
+}
+
+model Rombel {
+  id              String   @id @default(cuid())
+  name            String // e.g., "A", "B", "C"
+  maxStudents     Int      @default(40)
+  currentStudents Int      @default(0)
+  isActive        Boolean  @default(true)
+  classId         String
+  schoolId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  class    Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  school   School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  students Student[]
+
+  @@map("rombels")
 }
 
 model Teacher {
@@ -198,11 +221,13 @@ model Teacher {
   hireDate   DateTime
   isActive   Boolean  @default(true)
   schoolId   String
+  departmentId String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
   // Relations
   school   School    @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  department Department? @relation(fields: [departmentId], references: [id])
   classes  Class[]
   subjects Subject[]
 
@@ -225,8 +250,10 @@ model Student {
   updatedAt DateTime  @updatedAt
 
   // Relations
-  class  Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
-  school School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  class   Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  school  School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  rombel  Rombel? @relation(fields: [rombelId], references: [id])
+  rombelId String?
 
   @@map("students")
 }
@@ -260,12 +287,14 @@ model Subject {
   description String?
   credits     Int      @default(1)
   schoolId    String
+  majorId     String?  // Relasi ke Major (jurusan)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
   school   School    @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  major    Major?    @relation(fields: [majorId], references: [id])
   teachers Teacher[]
 
   @@map("subjects")

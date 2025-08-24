@@ -52,12 +52,12 @@ const data = {
       items: [
         {
           title: "Siswa",
-          url: "/dashboard/users?tab=student",
+          url: "/dashboard/users?tab=students",
           icon: GraduationCap,
         },
         {
           title: "Guru",
-          url: "/dashboard/users?tab=teacher",
+          url: "/dashboard/users?tab=teachers",
           icon: BookOpen,
         },
       ]

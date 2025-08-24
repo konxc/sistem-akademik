@@ -40,19 +40,35 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(route)
   )
   
-  // Get token from cookies
+  // Get token from cookies - check both development and production cookie names
   const token = request.cookies.get('next-auth.session-token')?.value ||
-                request.cookies.get('__Secure-next-auth.session-token')?.value
+                request.cookies.get('__Secure-next-auth.session-token')?.value ||
+                request.cookies.get('__Host-next-auth.csrf-token')?.value
   
-  // If accessing protected route without token, redirect to login
+  // If accessing protected route without token, redirect to login with proper callback
   if (isProtectedRoute && !token) {
     const loginUrl = new URL('/auth/signin', request.url)
-    loginUrl.searchParams.set('callbackUrl', pathname)
+    // Encode the full pathname as callback URL
+    loginUrl.searchParams.set('callbackUrl', encodeURIComponent(pathname))
     return NextResponse.redirect(loginUrl)
   }
   
-  // If accessing login page with valid token, redirect to dashboard
+  // If accessing login page with valid token, redirect to dashboard or callback URL
   if (pathname === '/auth/signin' && token) {
+    // Check if there's a callback URL in the query params
+    const callbackUrl = request.nextUrl.searchParams.get('callbackUrl')
+    if (callbackUrl && callbackUrl.startsWith('/')) {
+      // Decode the callback URL and redirect
+      try {
+        const decodedCallback = decodeURIComponent(callbackUrl)
+        if (decodedCallback.startsWith('/dashboard')) {
+          return NextResponse.redirect(new URL(decodedCallback, request.url))
+        }
+      } catch (error) {
+        console.error('Error decoding callback URL:', error)
+      }
+    }
+    // Default redirect to dashboard
     const dashboardUrl = new URL('/dashboard', request.url)
     return NextResponse.redirect(dashboardUrl)
   }

@@ -40,6 +40,7 @@ function UsersPageContent() {
     return false
   })
   const [showCreateModal, setShowCreateModal] = useState(false)
+  const [createInitialRole, setCreateInitialRole] = useState<'student'|'teacher'|'staff'|'admin'>('student')
   const [editingUser, setEditingUser] = useState<any>(null)
   const [viewingUser, setViewingUser] = useState<any>(null)
   const [filters, setFilters] = useState({
@@ -116,12 +117,10 @@ function UsersPageContent() {
 
   const handleCreateSuccess = () => {
     setShowCreateModal(false)
-    toast.success('User berhasil dibuat')
   }
 
   const handleEditSuccess = () => {
     setEditingUser(null)
-    toast.success('User berhasil diupdate')
   }
 
   const handleDeleteSuccess = () => {
@@ -354,6 +353,11 @@ function UsersPageContent() {
                   </div>
                 ) : error ? (
                   <div className="text-red-600 text-center py-8">Error loading students</div>
+                ) : getCurrentUsers().length === 0 ? (
+                  <div className="text-center py-12 border rounded-md">
+                    <p className="text-muted-foreground mb-4">Belum ada data siswa.</p>
+                    <Button onClick={() => { setCreateInitialRole('student'); setShowCreateModal(true) }}>Tambah Siswa</Button>
+                  </div>
                 ) : (
                   <Table>
                     <TableHeader>
@@ -430,6 +434,11 @@ function UsersPageContent() {
                   </div>
                 ) : error ? (
                   <div className="text-red-600 text-center py-8">Error loading teachers</div>
+                ) : getCurrentUsers().length === 0 ? (
+                  <div className="text-center py-12 border rounded-md">
+                    <p className="text-muted-foreground mb-4">Belum ada data guru.</p>
+                    <Button onClick={() => { setCreateInitialRole('teacher'); setShowCreateModal(true) }}>Tambah Guru</Button>
+                  </div>
                 ) : (
                   <Table>
                     <TableHeader>
@@ -437,6 +446,7 @@ function UsersPageContent() {
                         <TableHead>Nama</TableHead>
                         <TableHead>Teacher ID</TableHead>
                         <TableHead>Position</TableHead>
+                        <TableHead>Department</TableHead>
                         <TableHead>Subjects</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Aksi</TableHead>
@@ -456,6 +466,7 @@ function UsersPageContent() {
                           </TableCell>
                           <TableCell className="font-medium">{user.teacherId || '-'}</TableCell>
                           <TableCell>{user.position || '-'}</TableCell>
+                          <TableCell>{user.department?.name || '-'}</TableCell>
                           <TableCell>{user.subjects?.map((s: { name: string }) => s.name).join(', ') || '-'}</TableCell>
                           <TableCell>{getStatusBadge(user.isActive)}</TableCell>
                           <TableCell>
@@ -506,6 +517,11 @@ function UsersPageContent() {
                   </div>
                 ) : error ? (
                   <div className="text-red-600 text-center py-8">Error loading staff</div>
+                ) : getCurrentUsers().length === 0 ? (
+                  <div className="text-center py-12 border rounded-md">
+                    <p className="text-muted-foreground mb-4">Belum ada data staff.</p>
+                    <Button onClick={() => { setCreateInitialRole('staff'); setShowCreateModal(true) }}>Tambah Staff</Button>
+                  </div>
                 ) : (
                   <Table>
                     <TableHeader>
@@ -565,6 +581,7 @@ function UsersPageContent() {
         onOpenChange={setShowCreateModal}
         onSuccess={handleCreateSuccess}
         schoolId={schoolId}
+        initialRole={createInitialRole}
       />
 
       <EditUserModal

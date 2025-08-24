@@ -1,0 +1,3583 @@
+{
+  "config": {
+    "configFile": "/home/dev/web/sistem-akademik/next-app/playwright.config.ts",
+    "rootDir": "/home/dev/web/sistem-akademik/next-app/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/home/dev/web/sistem-akademik/next-app/tests/global-setup.ts",
+    "globalTeardown": "/home/dev/web/sistem-akademik/next-app/tests/global-teardown.ts",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "failures-only",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "test-results/html-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "dot",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/dev/web/sistem-akademik/next-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/dev/web/sistem-akademik/next-app/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/dev/web/sistem-akademik/next-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/dev/web/sistem-akademik/next-app/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/dev/web/sistem-akademik/next-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/dev/web/sistem-akademik/next-app/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/dev/web/sistem-akademik/next-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/home/dev/web/sistem-akademik/next-app/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/dev/web/sistem-akademik/next-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/home/dev/web/sistem-akademik/next-app/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "rombel-modal.spec.ts",
+      "file": "rombel-modal.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Rombel Modal Component",
+          "file": "rombel-modal.spec.ts",
+          "line": 14,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Basic Functionality",
+              "file": "rombel-modal.spec.ts",
+              "line": 36,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should open rombel modal when clicking manage rombel button",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 12668,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:27.436Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--ec83d-icking-manage-rombel-button-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-4e62e00c5fea4d06b792",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 37,
+                  "column": 9
+                },
+                {
+                  "title": "should display form fields correctly",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 1,
+                          "parallelIndex": 1,
+                          "status": "failed",
+                          "duration": 12733,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:27.424Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--1000b-splay-form-fields-correctly-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-51af11731359b790401d",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should show required field indicators",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 2,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 11890,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:40.714Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--da961-w-required-field-indicators-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-a5b216a969a9efc7f747",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 62,
+                  "column": 9
+                },
+                {
+                  "title": "should open rombel modal when clicking manage rombel button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-b9a9e59dc354fdd98d58",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 37,
+                  "column": 9
+                },
+                {
+                  "title": "should display form fields correctly",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9ede9d144b8891c8a18f",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should show required field indicators",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-faf06f98e1fc4c167b6b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 62,
+                  "column": 9
+                },
+                {
+                  "title": "should open rombel modal when clicking manage rombel button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-82518f61e452d57e1d95",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 37,
+                  "column": 9
+                },
+                {
+                  "title": "should display form fields correctly",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-dbd8b0ab0baca5be0764",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should show required field indicators",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-da75793c5faa88611215",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 62,
+                  "column": 9
+                },
+                {
+                  "title": "should open rombel modal when clicking manage rombel button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-88ee8ddbbc71fa5061e4",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 37,
+                  "column": 9
+                },
+                {
+                  "title": "should display form fields correctly",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-78b02f1fb1fbc2b72fea",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should show required field indicators",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-f55da0e0a776f649d894",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 62,
+                  "column": 9
+                },
+                {
+                  "title": "should open rombel modal when clicking manage rombel button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-21ec66568fd294490000",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 37,
+                  "column": 9
+                },
+                {
+                  "title": "should display form fields correctly",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-cfb5af4a170f21509307",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 52,
+                  "column": 9
+                },
+                {
+                  "title": "should show required field indicators",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-da134a5a28bcce3a0691",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 62,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Form Validation",
+              "file": "rombel-modal.spec.ts",
+              "line": 75,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should disable submit button when form is incomplete",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "parallelIndex": 1,
+                          "status": "failed",
+                          "duration": 11853,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:40.705Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--eea77-ton-when-form-is-incomplete-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-1f00e5eeccbfb35432d9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 76,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation errors for empty fields",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "parallelIndex": 1,
+                          "status": "failed",
+                          "duration": 11374,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:53.125Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e649-ion-errors-for-empty-fields-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-1183ee5a0faaa78005f1",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 98,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation error for invalid max students",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 5,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 11265,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:46:53.182Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--4c38a-or-for-invalid-max-students-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-8b56fbeeb7adc0eed112",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "should show form completion progress",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 6,
+                          "parallelIndex": 0,
+                          "status": "failed",
+                          "duration": 11839,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:47:05.045Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--2e47f-ow-form-completion-progress-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-6193ab505fe79da4b7d9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 128,
+                  "column": 9
+                },
+                {
+                  "title": "should disable submit button when form is incomplete",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3e0d9793aa48369db09d",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 76,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation errors for empty fields",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-83a739713cf46ad43fe2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 98,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation error for invalid max students",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ef1f879c1013ca486f46",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "should show form completion progress",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-d56cbac0593daa9230c2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 128,
+                  "column": 9
+                },
+                {
+                  "title": "should disable submit button when form is incomplete",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-568c3642f976f24b2277",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 76,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation errors for empty fields",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-edf638bd7c16062d3b71",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 98,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation error for invalid max students",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-eab97ded4c929f94f0b2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "should show form completion progress",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-7db023ea9da1407a089c",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 128,
+                  "column": 9
+                },
+                {
+                  "title": "should disable submit button when form is incomplete",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-89fdb42f75b161e629dd",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 76,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation errors for empty fields",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-2bf58285f6a45277da5d",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 98,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation error for invalid max students",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-bdac2cc76ac2ec148ec0",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "should show form completion progress",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-48d2c5429a0a5de95f9b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 128,
+                  "column": 9
+                },
+                {
+                  "title": "should disable submit button when form is incomplete",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-7102aea85381b8dbd704",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 76,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation errors for empty fields",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-a094d4b208d0bbae6349",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 98,
+                  "column": 9
+                },
+                {
+                  "title": "should show validation error for invalid max students",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-b7b0fb63d76b2d439bb8",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 111,
+                  "column": 9
+                },
+                {
+                  "title": "should show form completion progress",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-511e258eb7d4744eb524",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 128,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Create Rombel",
+              "file": "rombel-modal.spec.ts",
+              "line": 148,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should create rombel successfully",
+                  "ok": false,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "parallelIndex": 1,
+                          "status": "failed",
+                          "duration": 11722,
+                          "error": {
+                            "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "TimeoutError: page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:47:05.095Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/video.webm"
+                            },
+                            {
+                              "name": "error-context",
+                              "contentType": "text/markdown",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--3b782--create-rombel-successfully-chromium/error-context.md"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "unexpected"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-57d5fe2ddb623de3fa6b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "should handle create API error",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 8,
+                          "parallelIndex": 1,
+                          "status": "interrupted",
+                          "duration": 1734,
+                          "error": {
+                            "message": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:47:17.417Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--9559e-uld-handle-create-API-error-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--9559e-uld-handle-create-API-error-chromium/video.webm"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-f7daa82e458d47f1e0b5",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 190,
+                  "column": 9
+                },
+                {
+                  "title": "should create rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-1e776319262de9661003",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "should handle create API error",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-20ef2c9b8334732cb56b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 190,
+                  "column": 9
+                },
+                {
+                  "title": "should create rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-49f0a674107ee7546557",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "should handle create API error",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-86abca304e683e2e2741",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 190,
+                  "column": 9
+                },
+                {
+                  "title": "should create rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-98c1da7077b2a8af53f2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "should handle create API error",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-f1351334e7df4d36d4eb",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 190,
+                  "column": 9
+                },
+                {
+                  "title": "should create rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-fd23e73928a25d521f1a",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 149,
+                  "column": 9
+                },
+                {
+                  "title": "should handle create API error",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-0a7eb01714614363bfd2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 190,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Edit Rombel",
+              "file": "rombel-modal.spec.ts",
+              "line": 219,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should enter edit mode when clicking edit button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 9,
+                          "parallelIndex": 0,
+                          "status": "interrupted",
+                          "duration": 1669,
+                          "error": {
+                            "message": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n",
+                            "stack": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16",
+                            "location": {
+                              "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                              "column": 16,
+                              "line": 20
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m"
+                          },
+                          "errors": [
+                            {
+                              "location": {
+                                "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                                "column": 16,
+                                "line": 20
+                              },
+                              "message": "Error: page.waitForSelector: Test ended.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"school-management-page\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 18 |\u001b[39m     \n \u001b[90m 19 |\u001b[39m     \u001b[90m// Wait for page to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[data-testid=\"school-management-page\"]'\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     \n \u001b[90m 22 |\u001b[39m     \u001b[90m// Mock authentication as SUPER_ADMIN\u001b[39m\n \u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39maddInitScript(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at /home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts:20:16\u001b[22m"
+                            }
+                          ],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-20T03:47:17.494Z",
+                          "annotations": [],
+                          "attachments": [
+                            {
+                              "name": "screenshot",
+                              "contentType": "image/png",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--a866d-e-when-clicking-edit-button-chromium/test-failed-1.png"
+                            },
+                            {
+                              "name": "video",
+                              "contentType": "video/webm",
+                              "path": "/home/dev/web/sistem-akademik/next-app/test-results/rombel-modal-Rombel-Modal--a866d-e-when-clicking-edit-button-chromium/video.webm"
+                            }
+                          ],
+                          "errorLocation": {
+                            "file": "/home/dev/web/sistem-akademik/next-app/tests/rombel-modal.spec.ts",
+                            "column": 16,
+                            "line": 20
+                          }
+                        }
+                      ],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-078114c363e1723161a7",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 220,
+                  "column": 9
+                },
+                {
+                  "title": "should update rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5fdff4a1739ad0afd093",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 259,
+                  "column": 9
+                },
+                {
+                  "title": "should handle update API error - rombel not found",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5955b787918f635850a2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 295,
+                  "column": 9
+                },
+                {
+                  "title": "should enter edit mode when clicking edit button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-04526405f0cfbf08d9ac",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 220,
+                  "column": 9
+                },
+                {
+                  "title": "should update rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c5eef94fc75ad4a2d98a",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 259,
+                  "column": 9
+                },
+                {
+                  "title": "should handle update API error - rombel not found",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-f4eab1e169ba1280b582",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 295,
+                  "column": 9
+                },
+                {
+                  "title": "should enter edit mode when clicking edit button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-77cecec343e8fa5eb759",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 220,
+                  "column": 9
+                },
+                {
+                  "title": "should update rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-14c97d404542897200ae",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 259,
+                  "column": 9
+                },
+                {
+                  "title": "should handle update API error - rombel not found",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-02aa36ef913073e06e77",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 295,
+                  "column": 9
+                },
+                {
+                  "title": "should enter edit mode when clicking edit button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ccb9298f8c48e014a47f",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 220,
+                  "column": 9
+                },
+                {
+                  "title": "should update rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-dbdf16df4c47b345ab75",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 259,
+                  "column": 9
+                },
+                {
+                  "title": "should handle update API error - rombel not found",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-4d21a97b5110d39cbe4a",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 295,
+                  "column": 9
+                },
+                {
+                  "title": "should enter edit mode when clicking edit button",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3739bab237e4f604ce75",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 220,
+                  "column": 9
+                },
+                {
+                  "title": "should update rombel successfully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-98de1fb974c8974340d2",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 259,
+                  "column": 9
+                },
+                {
+                  "title": "should handle update API error - rombel not found",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-134a03392ec9af52e909",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 295,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Delete Rombel",
+              "file": "rombel-modal.spec.ts",
+              "line": 327,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should show enhanced confirmation when deleting editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-b56114ff05f4908f5da1",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 328,
+                  "column": 9
+                },
+                {
+                  "title": "should confirm delete editing rombel and close edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-93fa1f5851afceda56da",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "should cancel delete editing rombel and stay in edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c32e283fadf5cbf19305",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 437,
+                  "column": 9
+                },
+                {
+                  "title": "should use simple confirmation for non-editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-6e2d6b3baa6bd14894fc",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 485,
+                  "column": 9
+                },
+                {
+                  "title": "should show enhanced confirmation when deleting editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-59b742f672851dcbee86",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 328,
+                  "column": 9
+                },
+                {
+                  "title": "should confirm delete editing rombel and close edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5418e26229fb239aef41",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "should cancel delete editing rombel and stay in edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-b053ab4a07a3c17787c3",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 437,
+                  "column": 9
+                },
+                {
+                  "title": "should use simple confirmation for non-editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-a0ab3bbeb5e13f8166c7",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 485,
+                  "column": 9
+                },
+                {
+                  "title": "should show enhanced confirmation when deleting editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-d0725769cdd38441f4e6",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 328,
+                  "column": 9
+                },
+                {
+                  "title": "should confirm delete editing rombel and close edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-421a17c443acd0dc27ac",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "should cancel delete editing rombel and stay in edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-0156e2c950b874cdab68",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 437,
+                  "column": 9
+                },
+                {
+                  "title": "should use simple confirmation for non-editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-889564a51d5480ed26be",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 485,
+                  "column": 9
+                },
+                {
+                  "title": "should show enhanced confirmation when deleting editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c5a73ed0a6872beff90e",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 328,
+                  "column": 9
+                },
+                {
+                  "title": "should confirm delete editing rombel and close edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-7ee68bcd4a65c3819731",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "should cancel delete editing rombel and stay in edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-80abec05a1bf1970a6b8",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 437,
+                  "column": 9
+                },
+                {
+                  "title": "should use simple confirmation for non-editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-f8227244bf2f52aaf40b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 485,
+                  "column": 9
+                },
+                {
+                  "title": "should show enhanced confirmation when deleting editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-4b17ffb48f2068414440",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 328,
+                  "column": 9
+                },
+                {
+                  "title": "should confirm delete editing rombel and close edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-fd8c2d9c749f7c05398f",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 376,
+                  "column": 9
+                },
+                {
+                  "title": "should cancel delete editing rombel and stay in edit mode",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-cd3d0f195fa7488eb668",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 437,
+                  "column": 9
+                },
+                {
+                  "title": "should use simple confirmation for non-editing rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-d0eee4eb6040279ccad5",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 485,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Error Handling & Recovery",
+              "file": "rombel-modal.spec.ts",
+              "line": 540,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should auto-cleanup when editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-6baeded1a4765aa5a7ee",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 541,
+                  "column": 9
+                },
+                {
+                  "title": "should show warning for editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-27a178a1c17dd03dd3b4",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 589,
+                  "column": 9
+                },
+                {
+                  "title": "should handle concurrent operations gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-bed9c73dfb7eb80e503c",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 614,
+                  "column": 9
+                },
+                {
+                  "title": "should auto-cleanup when editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c7d5af8285e91103f4b1",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 541,
+                  "column": 9
+                },
+                {
+                  "title": "should show warning for editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-76deaa43aadc51b16824",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 589,
+                  "column": 9
+                },
+                {
+                  "title": "should handle concurrent operations gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-6f301af10fb98e3b9b82",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 614,
+                  "column": 9
+                },
+                {
+                  "title": "should auto-cleanup when editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c3c10e8847f0b362bf00",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 541,
+                  "column": 9
+                },
+                {
+                  "title": "should show warning for editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-48514cbd01cbfc350a0b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 589,
+                  "column": 9
+                },
+                {
+                  "title": "should handle concurrent operations gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c585addd840801d6dc2b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 614,
+                  "column": 9
+                },
+                {
+                  "title": "should auto-cleanup when editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5ed5f3fd9862b42899d6",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 541,
+                  "column": 9
+                },
+                {
+                  "title": "should show warning for editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3c29d41df02700f76822",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 589,
+                  "column": 9
+                },
+                {
+                  "title": "should handle concurrent operations gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-d71b35e84982b2b9fe3a",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 614,
+                  "column": 9
+                },
+                {
+                  "title": "should auto-cleanup when editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-39b596d6781f468b35b7",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 541,
+                  "column": 9
+                },
+                {
+                  "title": "should show warning for editing deleted rombel",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c9bd1bd491d4e1585925",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 589,
+                  "column": 9
+                },
+                {
+                  "title": "should handle concurrent operations gracefully",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3d21bd05d37e9ae83b0c",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 614,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Status Bar & Visual Feedback",
+              "file": "rombel-modal.spec.ts",
+              "line": 648,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should display status bar information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-82028537708c3c7ec5e9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 649,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading state",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5dd7e7e48d51f8265f21",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 660,
+                  "column": 9
+                },
+                {
+                  "title": "should track deleted rombels count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-797f195c0309ecb3941e",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 683,
+                  "column": 9
+                },
+                {
+                  "title": "should show last action performed",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-91e8cc150a322e5439bc",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 714,
+                  "column": 9
+                },
+                {
+                  "title": "should display status bar information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-96e830b0f5d1d82a19c1",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 649,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading state",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9e3cc0cc52c095d18e31",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 660,
+                  "column": 9
+                },
+                {
+                  "title": "should track deleted rombels count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-524797d477825785cb9d",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 683,
+                  "column": 9
+                },
+                {
+                  "title": "should show last action performed",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9dba3ccd434695c8fc41",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 714,
+                  "column": 9
+                },
+                {
+                  "title": "should display status bar information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-94b8703bed5d3416eb5c",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 649,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading state",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-8902147b23c95677c981",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 660,
+                  "column": 9
+                },
+                {
+                  "title": "should track deleted rombels count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-59bc094e51e9905eec79",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 683,
+                  "column": 9
+                },
+                {
+                  "title": "should show last action performed",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5006e3ec1da5ffcf7053",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 714,
+                  "column": 9
+                },
+                {
+                  "title": "should display status bar information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ef0af997abf8c19dd0ca",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 649,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading state",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-64f0d9aa204d56d7074b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 660,
+                  "column": 9
+                },
+                {
+                  "title": "should track deleted rombels count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-1201a15092f8e6eb00de",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 683,
+                  "column": 9
+                },
+                {
+                  "title": "should show last action performed",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ddbb0035600970f47e2f",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 714,
+                  "column": 9
+                },
+                {
+                  "title": "should display status bar information",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-77f9e6051c8bca830162",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 649,
+                  "column": 9
+                },
+                {
+                  "title": "should show loading state",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ddf589ba713774045c48",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 660,
+                  "column": 9
+                },
+                {
+                  "title": "should track deleted rombels count",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-7c125b691995170815c9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 683,
+                  "column": 9
+                },
+                {
+                  "title": "should show last action performed",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9b2bea50118f38ec818e",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 714,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Form State Management",
+              "file": "rombel-modal.spec.ts",
+              "line": 746,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should reset form when modal opens",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-c1ca6dabf3eddf3fec11",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 747,
+                  "column": 9
+                },
+                {
+                  "title": "should handle form validation state changes",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-23e84c9bae877930cc9f",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 767,
+                  "column": 9
+                },
+                {
+                  "title": "should reset form when modal opens",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3b17791d3d288df01263",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 747,
+                  "column": 9
+                },
+                {
+                  "title": "should handle form validation state changes",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-efdb702704350c16e72b",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 767,
+                  "column": 9
+                },
+                {
+                  "title": "should reset form when modal opens",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-675152bb0728d6be6cc0",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 747,
+                  "column": 9
+                },
+                {
+                  "title": "should handle form validation state changes",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ae82c14c8e1e88bbbc4c",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 767,
+                  "column": 9
+                },
+                {
+                  "title": "should reset form when modal opens",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-e4bccbb86774c07a0ede",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 747,
+                  "column": 9
+                },
+                {
+                  "title": "should handle form validation state changes",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-fa03e9671b2a76000cb5",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 767,
+                  "column": 9
+                },
+                {
+                  "title": "should reset form when modal opens",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-ab6d4269de08a0e933a5",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 747,
+                  "column": 9
+                },
+                {
+                  "title": "should handle form validation state changes",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-28da4ca7590a5cb1b80a",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 767,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Accessibility & Keyboard Navigation",
+              "file": "rombel-modal.spec.ts",
+              "line": 791,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should support keyboard navigation",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-17ba4d1638a9bdc8baa9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 792,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-62dbdc6dd04f90d4b889",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 809,
+                  "column": 9
+                },
+                {
+                  "title": "should support keyboard navigation",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-3d04be679fdae4ac8d97",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 792,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9adbe9118f5635b18300",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 809,
+                  "column": 9
+                },
+                {
+                  "title": "should support keyboard navigation",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-e89558b81c640a746e68",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 792,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-06cce2879c30d1c40abc",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 809,
+                  "column": 9
+                },
+                {
+                  "title": "should support keyboard navigation",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-d91a1c2bfcc412c1d1aa",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 792,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-89d26f382acb0d9dbdaa",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 809,
+                  "column": 9
+                },
+                {
+                  "title": "should support keyboard navigation",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-1be1bf3bfd3f82b771d0",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 792,
+                  "column": 9
+                },
+                {
+                  "title": "should have proper ARIA labels",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-4ee10d0caf65b3010552",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 809,
+                  "column": 9
+                }
+              ]
+            },
+            {
+              "title": "Mobile Responsiveness",
+              "file": "rombel-modal.spec.ts",
+              "line": 822,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-b7bdcec04618721f63b9",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 823,
+                  "column": 9
+                },
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-2de281094cccacfeb457",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 823,
+                  "column": 9
+                },
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-9b0697af87419b102359",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 823,
+                  "column": 9
+                },
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Chrome",
+                      "projectName": "Mobile Chrome",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5c3703e06af0910bcb5e",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 823,
+                  "column": 9
+                },
+                {
+                  "title": "should work on mobile viewport",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Mobile Safari",
+                      "projectName": "Mobile Safari",
+                      "results": [],
+                      "status": "skipped"
+                    }
+                  ],
+                  "id": "3f0da01a20ab6ac6265c-5ae996cd5202cf15f346",
+                  "file": "rombel-modal.spec.ts",
+                  "line": 823,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-20T03:46:24.211Z",
+    "duration": 55095.876000000004,
+    "expected": 0,
+    "skipped": 132,
+    "unexpected": 8,
+    "flaky": 0
+  }
+}

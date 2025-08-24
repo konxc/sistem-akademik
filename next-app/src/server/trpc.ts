@@ -28,7 +28,7 @@ const isAuthed = t.middleware(async ({ ctx, next }) => {
 const isAdmin = t.middleware(async ({ ctx, next }) => {
   const session = await getServerSession(authOptions);
   
-  if (!session?.user || session.user.role !== 'ADMIN') {
+  if (!session?.user || (session.user.role !== 'ADMIN' && session.user.role !== 'SUPER_ADMIN')) {
     throw new TRPCError({
       code: 'FORBIDDEN',
       message: 'Anda tidak memiliki akses ke fitur ini',
@@ -48,12 +48,3 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 export const protectedProcedure = t.procedure.use(isAuthed);
 export const adminProcedure = t.procedure.use(isAdmin);
-
-// Base router
-export const appRouter = t.router({
-  hello: t.procedure.input(z.string()).query(({ input }) => {
-    return `Hello, ${input}!`;
-  }),
-});
-
-export type AppRouter = typeof appRouter;

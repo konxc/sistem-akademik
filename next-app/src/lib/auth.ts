@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  debug: process.env.NODE_ENV === 'development',
   providers: [
     // GoogleProvider({
     //   clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -58,6 +59,7 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt" as const,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
     async session({ session, token }: any) {
@@ -73,6 +75,18 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    async redirect({ url, baseUrl }) {
+      // Handle callback URLs properly
+      if (url.startsWith('/')) {
+        // Relative URL, prepend base URL
+        return `${baseUrl}${url}`
+      } else if (new URL(url).origin === baseUrl) {
+        // Same origin, allow redirect
+        return url
+      }
+      // Default to base URL
+      return baseUrl
+    }
   },
   pages: {
     signIn: "/auth/signin",

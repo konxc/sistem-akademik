@@ -92,6 +92,20 @@ export const useUpdateAcademicYear = () => {
   });
 };
 
+export const useDeleteAcademicYear = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteAcademicYear.useMutation({
+    onSuccess: () => {
+      toast.success('Tahun ajaran berhasil dihapus');
+      utils.school.getAcademicYears.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus tahun ajaran');
+    },
+  });
+};
+
 // Department Hooks
 export const useDepartments = (schoolId: string) => {
   return trpc.school.getDepartments.useQuery({ schoolId }, {
@@ -123,6 +137,20 @@ export const useUpdateDepartment = () => {
     },
     onError: (error) => {
       toast.error(error.message || 'Gagal mengupdate departemen');
+    },
+  });
+};
+
+export const useDeleteDepartment = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteDepartment.useMutation({
+    onSuccess: () => {
+      toast.success('Departemen berhasil dihapus');
+      utils.school.getDepartments.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus departemen');
     },
   });
 };
@@ -162,6 +190,20 @@ export const useUpdateMajor = () => {
   });
 };
 
+export const useDeleteMajor = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteMajor.useMutation({
+    onSuccess: () => {
+      toast.success('Jurusan berhasil dihapus');
+      utils.school.getMajors.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus jurusan');
+    },
+  });
+};
+
 // Class Hooks
 export const useClasses = (query: any) => {
   return trpc.school.getClasses.useQuery(query, {
@@ -197,6 +239,20 @@ export const useUpdateClass = () => {
   });
 };
 
+export const useDeleteClass = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteClass.useMutation({
+    onSuccess: () => {
+      toast.success('Kelas berhasil dihapus');
+      utils.school.getClasses.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus kelas');
+    },
+  });
+};
+
 // Teacher Hooks
 export const useTeachers = (query: any) => {
   return trpc.school.getTeachers.useQuery(query, {
@@ -228,6 +284,20 @@ export const useUpdateTeacher = () => {
     },
     onError: (error) => {
       toast.error(error.message || 'Gagal mengupdate data guru');
+    },
+  });
+};
+
+export const useDeleteTeacher = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteTeacher.useMutation({
+    onSuccess: () => {
+      toast.success('Guru berhasil dihapus');
+      utils.school.getTeachers.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus guru');
     },
   });
 };
@@ -268,6 +338,21 @@ export const useUpdateStudent = () => {
   });
 };
 
+export const useDeleteStudent = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteStudent.useMutation({
+    onSuccess: () => {
+      toast.success('Siswa berhasil dihapus');
+      utils.school.getStudents.invalidate();
+      utils.school.getClasses.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus siswa');
+    },
+  });
+};
+
 // Staff Hooks
 export const useStaff = (query: any) => {
   return trpc.school.getStaff.useQuery(query, {
@@ -303,9 +388,39 @@ export const useUpdateStaff = () => {
   });
 };
 
+export const useDeleteStaff = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteStaff.useMutation({
+    onSuccess: () => {
+      toast.success('Staff berhasil dihapus');
+      utils.school.getStaff.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus staff');
+    },
+  });
+};
+
 // Subject Hooks
-export const useSubjects = (query: any) => {
-  return trpc.school.getSubjects.useQuery(query, {
+export const useSubjects = (schoolId: string) => {
+  return trpc.school.getSubjects.useQuery({ schoolId }, {
+    enabled: !!schoolId,
+    placeholderData: (previousData) => previousData,
+  });
+};
+
+export const useSubjectsByMajor = (schoolId: string) => {
+  return trpc.school.getSubjectsByMajor.useQuery({ schoolId }, {
+    enabled: !!schoolId,
+    placeholderData: (previousData) => previousData,
+  });
+};
+
+// Rombel Hooks
+export const useRombels = (classId: string, isActive?: boolean) => {
+  return trpc.school.getRombels.useQuery({ classId, isActive }, {
+    enabled: !!classId,
     placeholderData: (previousData) => previousData,
   });
 };
@@ -316,7 +431,9 @@ export const useCreateSubject = () => {
   return trpc.school.createSubject.useMutation({
     onSuccess: () => {
       toast.success('Mata pelajaran berhasil ditambahkan');
+      // Invalidate semua query yang relevan untuk live updates
       utils.school.getSubjects.invalidate();
+      utils.school.getSubjectsByMajor.invalidate();
     },
     onError: (error) => {
       toast.error(error.message || 'Gagal menambahkan mata pelajaran');
@@ -330,10 +447,28 @@ export const useUpdateSubject = () => {
   return trpc.school.updateSubject.useMutation({
     onSuccess: () => {
       toast.success('Mata pelajaran berhasil diupdate');
+      // Invalidate semua query yang relevan untuk live updates
       utils.school.getSubjects.invalidate();
+      utils.school.getSubjectsByMajor.invalidate();
     },
     onError: (error) => {
       toast.error(error.message || 'Gagal mengupdate mata pelajaran');
+    },
+  });
+};
+
+export const useDeleteSubject = () => {
+  const utils = trpc.useUtils();
+  
+  return trpc.school.deleteSubject.useMutation({
+    onSuccess: () => {
+      toast.success('Mata pelajaran berhasil dihapus');
+      // Invalidate semua query yang relevan untuk live updates
+      utils.school.getSubjects.invalidate();
+      utils.school.getSubjectsByMajor.invalidate();
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Gagal menghapus mata pelajaran');
     },
   });
 };

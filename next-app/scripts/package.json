@@ -1,0 +1,16 @@
+{
+  "name": "sistem-akademik-scripts",
+  "version": "1.0.0",
+  "description": "Database management scripts for Sistem Akademik",
+  "type": "module",
+  "scripts": {
+    "check-data": "tsx check-data.ts",
+    "check-subjects": "tsx check-subjects.ts",
+    "seed-subjects": "tsx seed-subjects.ts",
+    "update-majors": "tsx update-subject-majors.ts",
+    "db-refresh": "tsx db-refresh.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
