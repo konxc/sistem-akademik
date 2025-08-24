@@ -1,14 +1,12 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect, Suspense, useMemo } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Separator } from "@/components/ui/separator"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,10 +18,17 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Search, Plus, Filter, MoreHorizontal, UserCheck, Users, GraduationCap, Settings } from "lucide-react"
+import { Search, Plus, Filter, MoreHorizontal, UserCheck, Users, GraduationCap, Briefcase, Shield } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
+import { useSchools } from '@/hooks/use-school'
+
+import { CreateUserModal } from '@/components/users/create-user-modal'
+import { EditUserModal } from '@/components/users/edit-user-modal'
+import { ViewUserModal } from '@/components/users/view-user-modal'
+import { useUsers, useDeleteUser } from '@/hooks/useUser'
+import { toast } from 'sonner'
 
 function UsersPageContent() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -34,6 +39,16 @@ function UsersPageContent() {
     }
     return false
   })
+  const [showCreateModal, setShowCreateModal] = useState(false)
+  const [editingUser, setEditingUser] = useState<any>(null)
+  const [viewingUser, setViewingUser] = useState<any>(null)
+  const [filters, setFilters] = useState({
+    search: '',
+    role: 'all',
+    isActive: 'all',
+    classId: 'all',
+    majorId: 'all'
+  })
 
   // Get tab from URL params
   const searchParams = useSearchParams()
@@ -43,19 +58,29 @@ function UsersPageContent() {
   // Get active tab from URL query parameter
   const [activeTab, setActiveTab] = useState(() => {
     const tab = searchParams.get('tab') || 'students'
-    return tab === "teacher" ? "teachers" : tab === "staff" ? "staff" : "students"
+    return tab === "teachers" ? "teachers" : tab === "staff" ? "staff" : "students"
   })
+
+  const { data: schoolsData, isLoading: isLoadingSchools } = useSchools({ page: 1, limit: 1 })
+  
+  const schoolId = useMemo(() => {
+    const school = schoolsData?.data?.[0]
+    return school?.id || ''
+  }, [schoolsData?.data])
 
   // Update URL when tab changes
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId)
     const params = new URLSearchParams(searchParams)
     if (tabId === "teachers") {
-      params.set('tab', 'teacher')
+      params.set('tab', 'teachers')
+      setFilters(prev => ({ ...prev, role: 'TEACHER' }))
     } else if (tabId === "staff") {
       params.set('tab', 'staff')
+      setFilters(prev => ({ ...prev, role: 'STAFF' }))
     } else {
       params.set('tab', 'students')
+      setFilters(prev => ({ ...prev, role: 'STUDENT' }))
     }
     router.push(`${pathname}?${params.toString()}`)
   }
@@ -63,103 +88,63 @@ function UsersPageContent() {
   // Sync with URL changes
   useEffect(() => {
     const tab = searchParams.get('tab') || 'students'
-    if (tab === "teacher") {
+    if (tab === "teachers") {
       setActiveTab("teachers")
+      setFilters(prev => ({ ...prev, role: 'TEACHER' }))
     } else if (tab === "staff") {
       setActiveTab("staff")
+      setFilters(prev => ({ ...prev, role: 'STAFF' }))
     } else {
       setActiveTab("students")
+      setFilters(prev => ({ ...prev, role: 'STUDENT' }))
     }
   }, [searchParams])
 
-  const students = [
-    {
-      id: "1",
-      name: "Ahmad Rizki Pratama",
-      nisn: "0012345678",
-      phone: "081234567890",
-      grade: "12",
-      group: "XII IPA 1",
-      balance: "Rp 150.000",
-      status: "active",
-    },
-    {
-      id: "2",
-      name: "Siti Nurhaliza",
-      nisn: "0012345679",
-      phone: "081234567891",
-      grade: "11",
-      group: "XI IPS 2",
-      balance: "Rp 200.000",
-      status: "active",
-    },
-    {
-      id: "3",
-      name: "Budi Santoso",
-      nisn: "0012345680",
-      phone: "081234567892",
-      grade: "10",
-      group: "X MIPA 3",
-      balance: "Rp 75.000",
-      status: "inactive",
-    },
-  ]
+  // Get users data based on current filters
+  const { data: usersData, isLoading: isLoadingUsers, error } = useUsers({
+    schoolId,
+    role: filters.role === 'all' ? undefined : (filters.role as 'STUDENT' | 'TEACHER' | 'STAFF'),
+    classId: filters.classId === 'all' ? undefined : filters.classId,
+    majorId: filters.majorId === 'all' ? undefined : filters.majorId,
+    isActive: filters.isActive === 'all' ? undefined : filters.isActive === 'true',
+    search: searchTerm || undefined,
+    page: 1,
+    limit: 50
+  })
 
-  const teachers = [
-    {
-      id: "1",
-      name: "Dr. Fatimah Azzahra, M.Pd",
-      nip: "196801011990032001",
-      phone: "081234567893",
-      subject: "Matematika",
-      status: "active",
-    },
-    {
-      id: "2",
-      name: "Drs. Muhammad Yusuf",
-      nip: "196505151991031002",
-      phone: "081234567894",
-      subject: "Fisika",
-      status: "active",
-    },
-    {
-      id: "3",
-      name: "Dra. Siti Aisyah",
-      nip: "197002201992032003",
-      phone: "081234567895",
-      subject: "Kimia",
-      status: "active",
-    },
-  ]
+  const deleteUserMutation = useDeleteUser()
 
-  const staff = [
-    {
-      id: "1",
-      name: "Sri Wahyuni, S.E",
-      nip: "198003151995032004",
-      phone: "081234567896",
-      position: "Staff Administrasi",
-      status: "active",
-    },
-    {
-      id: "2",
-      name: "Joko Widodo, S.Kom",
-      nip: "198504201996031005",
-      phone: "081234567897",
-      position: "Staff IT",
-      status: "active",
-    },
-  ]
+  const handleCreateSuccess = () => {
+    setShowCreateModal(false)
+    toast.success('User berhasil dibuat')
+  }
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "active":
-        return <Badge variant="default" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Aktif</Badge>
-      case "inactive":
-        return <Badge variant="destructive">Tidak Aktif</Badge>
-      default:
-        return <Badge variant="outline">Belum Diketahui</Badge>
+  const handleEditSuccess = () => {
+    setEditingUser(null)
+    toast.success('User berhasil diupdate')
+  }
+
+  const handleDeleteSuccess = () => {
+    toast.success('User berhasil dihapus')
+  }
+
+  const handleDelete = async (userId: string) => {
+    if (confirm('Apakah Anda yakin ingin menghapus user ini?')) {
+      try {
+        await deleteUserMutation.mutateAsync({ id: userId })
+        handleDeleteSuccess()
+      } catch (error) {
+        toast.error('Gagal menghapus user')
+      }
     }
+  }
+
+  const getStatusBadge = (status: boolean) => {
+    return status ? (
+      <Badge variant="default" className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Aktif</Badge>
+    ) : (
+      <Badge variant="destructive">Tidak Aktif</Badge>
+    )
   }
 
   // Toggle filter card and save to localStorage
@@ -169,9 +154,43 @@ function UsersPageContent() {
     localStorage.setItem('users-filter-visible', newValue.toString())
   }
 
+  // Get initials for avatar
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
+  }
 
+  // Get current users data based on active tab
+  const getCurrentUsers = () => {
+    if (!usersData?.users) return []
+    return usersData.users
+  }
 
+    if (isLoadingSchools) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-lg">Loading...</p>
+        </div>
+      </div>
+    )
+  }
 
+  if (!schoolId) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600">Error</h1>
+          <p className="mt-2 text-gray-600">Tidak dapat memuat data sekolah</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex-1 space-y-6 p-6">
@@ -190,7 +209,7 @@ function UsersPageContent() {
             <Filter className="h-4 w-4 mr-2" />
             {showFilterCard ? "Sembunyikan Filter" : "Filter"}
           </Button>
-          <Button size="sm">
+          <Button size="sm" onClick={() => setShowCreateModal(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Tambah Pengguna
           </Button>
@@ -230,34 +249,34 @@ function UsersPageContent() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="status-filter">Status</Label>
-                  <Select>
+                  <Select value={filters.isActive} onValueChange={(value) => setFilters(prev => ({ ...prev, isActive: value }))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Pilih status" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Semua Status</SelectItem>
-                      <SelectItem value="active">Aktif</SelectItem>
-                      <SelectItem value="inactive">Tidak Aktif</SelectItem>
+                      <SelectItem value="true">Aktif</SelectItem>
+                      <SelectItem value="false">Tidak Aktif</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="role-filter">Role</Label>
-                  <Select>
+                  <Select value={filters.role} onValueChange={(value) => setFilters(prev => ({ ...prev, role: value }))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Pilih role" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Semua Role</SelectItem>
-                      <SelectItem value="student">Siswa</SelectItem>
-                      <SelectItem value="teacher">Guru</SelectItem>
-                      <SelectItem value="staff">Staff</SelectItem>
+                      <SelectItem value="STUDENT">Siswa</SelectItem>
+                      <SelectItem value="TEACHER">Guru</SelectItem>
+                      <SelectItem value="STAFF">Staff</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="grade-filter">Kelas</Label>
-                  <Select>
+                  <Select value={filters.classId} onValueChange={(value) => setFilters(prev => ({ ...prev, classId: value }))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Pilih kelas" />
                     </SelectTrigger>
@@ -281,7 +300,16 @@ function UsersPageContent() {
                   />
                 </div>
                 <div className="flex justify-end space-x-2">
-                  <Button variant="outline" onClick={toggleFilterCard}>
+                  <Button variant="outline" onClick={() => {
+                    setFilters({
+                      search: '',
+                      role: 'all',
+                      isActive: 'all',
+                      classId: 'all',
+                      majorId: 'all'
+                    })
+                    setSearchTerm('')
+                  }}>
                     Reset
                   </Button>
                   <Button>
@@ -295,7 +323,7 @@ function UsersPageContent() {
       )}
 
       {/* Shadcn/ui Tabs dengan URL-based */}
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
+      <Tabs value={activeTab} onValueChange={handleTabChange}>
         <TabsList>
           <TabsTrigger value="students">Siswa</TabsTrigger>
           <TabsTrigger value="teachers">Guru</TabsTrigger>
@@ -320,51 +348,59 @@ function UsersPageContent() {
                 <CardDescription>Kelola data siswa sekolah</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NISN</TableHead>
-                      <TableHead>Kelas</TableHead>
-                      <TableHead>Saldo</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {students.map((student) => (
-                      <TableRow key={student.id}>
-                        <TableCell className="flex items-center space-x-3">
-                          <Avatar className="h-8 w-8">
-                            <AvatarFallback>{student.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <div className="font-medium">{student.name}</div>
-                            <div className="text-sm text-muted-foreground">{student.phone}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">{student.nisn}</TableCell>
-                        <TableCell>{student.group}</TableCell>
-                        <TableCell className="font-medium">{student.balance}</TableCell>
-                        <TableCell>{getStatusBadge(student.status)}</TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
-                              <DropdownMenuItem>Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
+                {isLoadingUsers ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                  </div>
+                ) : error ? (
+                  <div className="text-red-600 text-center py-8">Error loading students</div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama</TableHead>
+                        <TableHead>Student ID</TableHead>
+                        <TableHead>Kelas</TableHead>
+                        <TableHead>Major</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Aksi</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {getCurrentUsers().map((user: any) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="flex items-center space-x-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarFallback>{getInitials(user.name || 'U')}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-medium">{user.name}</div>
+                              <div className="text-sm text-muted-foreground">{user.email}</div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium">{user.studentId || '-'}</TableCell>
+                          <TableCell>{user.class?.name || '-'}</TableCell>
+                          <TableCell>{user.class?.major?.name || '-'}</TableCell>
+                          <TableCell>{getStatusBadge(user.isActive)}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setEditingUser(user)}>Edit</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setViewingUser(user)}>Lihat Detail</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDelete(user.id)}>Hapus</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </motion.div>
@@ -388,49 +424,59 @@ function UsersPageContent() {
                 <CardDescription>Kelola data guru sekolah</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NIP</TableHead>
-                      <TableHead>Mata Pelajaran</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {teachers.map((teacher) => (
-                      <TableRow key={teacher.id}>
-                        <TableCell className="flex items-center space-x-3">
-                          <Avatar className="h-8 w-8">
-                            <AvatarFallback>{teacher.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <div className="font-medium">{teacher.name}</div>
-                            <div className="text-sm text-muted-foreground">{teacher.phone}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">{teacher.nip}</TableCell>
-                        <TableCell>{teacher.subject}</TableCell>
-                        <TableCell>{getStatusBadge(teacher.status)}</TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
-                              <DropdownMenuItem>Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
+                {isLoadingUsers ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                  </div>
+                ) : error ? (
+                  <div className="text-red-600 text-center py-8">Error loading teachers</div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama</TableHead>
+                        <TableHead>Teacher ID</TableHead>
+                        <TableHead>Position</TableHead>
+                        <TableHead>Subjects</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Aksi</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {getCurrentUsers().map((user: any) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="flex items-center space-x-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarFallback>{getInitials(user.name || 'U')}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-medium">{user.name}</div>
+                              <div className="text-sm text-muted-foreground">{user.email}</div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium">{user.teacherId || '-'}</TableCell>
+                          <TableCell>{user.position || '-'}</TableCell>
+                          <TableCell>{user.subjects?.map((s: { name: string }) => s.name).join(', ') || '-'}</TableCell>
+                          <TableCell>{getStatusBadge(user.isActive)}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setEditingUser(user)}>Edit</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setViewingUser(user)}>Lihat Detail</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDelete(user.id)}>Hapus</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </motion.div>
@@ -454,54 +500,85 @@ function UsersPageContent() {
                 <CardDescription>Kelola data staff sekolah</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama</TableHead>
-                      <TableHead>NIP</TableHead>
-                      <TableHead>Posisi</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Aksi</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {staff.map((staffMember) => (
-                      <TableRow key={staffMember.id}>
-                        <TableCell className="flex items-center space-x-3">
-                          <Avatar className="h-8 w-8">
-                            <AvatarFallback>{staffMember.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <div className="font-medium">{staffMember.name}</div>
-                            <div className="text-sm text-muted-foreground">{staffMember.phone}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">{staffMember.nip}</TableCell>
-                        <TableCell>{staffMember.position}</TableCell>
-                        <TableCell>{getStatusBadge(staffMember.status)}</TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
-                              <DropdownMenuItem>Hapus</DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
+                {isLoadingUsers ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                  </div>
+                ) : error ? (
+                  <div className="text-red-600 text-center py-8">Error loading staff</div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nama</TableHead>
+                        <TableHead>Employee ID</TableHead>
+                        <TableHead>Posisi</TableHead>
+                        <TableHead>Department</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Aksi</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {getCurrentUsers().map((user: any) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="flex items-center space-x-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarFallback>{getInitials(user.name || 'U')}</AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-medium">{user.name}</div>
+                              <div className="text-sm text-muted-foreground">{user.email}</div>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium">{user.employeeId || '-'}</TableCell>
+                          <TableCell>{user.position || '-'}</TableCell>
+                          <TableCell>{user.department?.name || '-'}</TableCell>
+                          <TableCell>{getStatusBadge(user.isActive)}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setEditingUser(user)}>Edit</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setViewingUser(user)}>Lihat Detail</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDelete(user.id)}>Hapus</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </CardContent>
             </Card>
           </motion.div>
         </TabsContent>
       </Tabs>
+
+      {/* Modals */}
+      <CreateUserModal
+        open={showCreateModal}
+        onOpenChange={setShowCreateModal}
+        onSuccess={handleCreateSuccess}
+        schoolId={schoolId}
+      />
+
+      <EditUserModal
+        user={editingUser}
+        open={!!editingUser}
+        onOpenChange={(open) => !open && setEditingUser(null)}
+        onSuccess={handleEditSuccess}
+      />
+
+      <ViewUserModal
+        user={viewingUser}
+        open={!!viewingUser}
+        onOpenChange={(open) => !open && setViewingUser(null)}
+      />
     </div>
   )
 }
